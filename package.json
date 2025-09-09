@@ -25,10 +25,10 @@
     },
     "scripts": {
         "dev": "next dev",
-        "build": "next build",
+        "build": "npx prisma generate && next build",
         "start": "next start",
         "lint": "next lint",
-        "postinstall": "cd src && npx prisma generate",
+        "postinstall": "npx prisma generate",
         "db:seed": "cd src && npx ts-node prisma/seed.ts",
         "db:push": "cd src && npx prisma db push",
         "db:migrate": "cd src && npx prisma migrate dev"
