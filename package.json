@@ -25,13 +25,13 @@
     },
     "scripts": {
         "dev": "next dev",
-        "build": "npx prisma generate && next build",
+        "build": "npx prisma generate --schema=./src/prisma/schema.prisma && next build",
         "start": "next start",
         "lint": "next lint",
-        "postinstall": "npx prisma generate",
+        "postinstall": "npx prisma generate --schema=./src/prisma/schema.prisma",
         "db:seed": "cd src && npx ts-node prisma/seed.ts",
-        "db:push": "cd src && npx prisma db push",
-        "db:migrate": "cd src && npx prisma migrate dev"
+        "db:push": "npx prisma db push --schema=./src/prisma/schema.prisma",
+        "db:migrate": "npx prisma migrate dev --schema=./src/prisma/schema.prisma"
     },
     "dependencies": {
         "@emoji-mart/data": "^1.1.2",
