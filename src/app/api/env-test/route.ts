@@ -17,7 +17,7 @@ export async function GET() {
         const partialValues = {
             DATABASE_URL: process.env.DATABASE_URL ? process.env.DATABASE_URL.substring(0, 50) + "..." : "Not set",
             NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL || "Not set",
-            JWT_SECRET_KEY: process.env.JWT_SECRET_KEY ? "Set (length: " + process.env.JWT_SECRET.length + ")" : "Not set",
+            JWT_SECRET_KEY: process.env.JWT_SECRET_KEY ? "Set (length: " + process.env.JWT_SECRET_KEY.length + ")" : "Not set",
         };
 
         return NextResponse.json({
