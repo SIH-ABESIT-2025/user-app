@@ -1,0 +1,172 @@
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+    provider          = "postgresql"
+    url               = env("DATABASE_URL")
+    directUrl         = env("DIRECT_DATABASE_URL")
+}
+
+model User {
+    id               String         @id @default(uuid())
+    username         String         @unique @db.VarChar(20)
+    password         String
+    phoneNumber      String         @db.VarChar(15)
+    email            String         @db.VarChar(100)
+    name             String?        @db.VarChar(50)
+    description      String?        @db.VarChar(160)
+    location         String?        @db.VarChar(30)
+    website          String?        @db.VarChar(30)
+    photoUrl         String?
+    headerUrl        String?
+    isPremium        Boolean        @default(false)
+    createdAt        DateTime       @default(now())
+    updatedAt        DateTime       @default(now()) @updatedAt
+    createdTweets    Tweet[]        @relation("userTweets")
+    retweets         Tweet[]        @relation("userRetweets")
+    likedTweets      Tweet[]        @relation("userLikes")
+    following        User[]         @relation("userFollows")
+    followers        User[]         @relation("userFollows")
+    sentMessages     Message[]      @relation("userMessagesSent")
+    receivedMessages Message[]      @relation("userMessagesRecieved")
+    notifications    Notification[]
+    complaints       Complaint[]    @relation("userComplaints")
+    assignedComplaints Complaint[]  @relation("assignedComplaints")
+    complaintUpdates ComplaintUpdate[]
+    complaintComments ComplaintComment[]
+}
+
+model Tweet {
+    id          String   @id @default(uuid())
+    text        String   @db.VarChar(280)
+    createdAt   DateTime @default(now())
+    author      User     @relation("userTweets", fields: [authorId], references: [id])
+    authorId    String
+    photoUrl    String?
+    likedBy     User[]   @relation("userLikes")
+    retweetedBy User[]   @relation("userRetweets")
+    replies     Tweet[]  @relation("tweetReplies")
+    retweets    Tweet[]  @relation("retweetOf")
+    isRetweet   Boolean  @default(false)
+    retweetOf   Tweet?   @relation("retweetOf", fields: [retweetOfId], references: [id], onDelete: Cascade)
+    retweetOfId String?
+    isReply     Boolean  @default(false)
+    repliedTo   Tweet?   @relation("tweetReplies", fields: [repliedToId], references: [id], onDelete: Cascade)
+    repliedToId String?
+}
+
+model Message {
+    id          String   @id @default(uuid())
+    text        String   @db.VarChar(280)
+    createdAt   DateTime @default(now())
+    sender      User     @relation("userMessagesSent", fields: [senderId], references: [id])
+    senderId    String
+    recipient   User     @relation("userMessagesRecieved", fields: [recipientId], references: [id])
+    recipientId String
+    photoUrl    String?
+}
+
+model Notification {
+    id        String   @id @default(uuid())
+    type      String   @db.VarChar(20)
+    content   String
+    createdAt DateTime @default(now())
+    isRead    Boolean  @default(false)
+    user      User     @relation(fields: [userId], references: [id])
+    userId    String
+}
+
+model Ministry {
+    id          String      @id @default(uuid())
+    name        String      @unique @db.VarChar(100)
+    description String?     @db.VarChar(500)
+    icon        String?     @db.VarChar(50)
+    color       String?     @db.VarChar(7)
+    isActive    Boolean     @default(true)
+    createdAt   DateTime    @default(now())
+    updatedAt   DateTime    @default(now()) @updatedAt
+    complaints  Complaint[]
+}
+
+model Complaint {
+    id              String            @id @default(uuid())
+    title           String            @db.VarChar(200)
+    description     String            @db.VarChar(2000)
+    location        String?           @db.VarChar(200)
+    latitude        Float?
+    longitude       Float?
+    priority        ComplaintPriority @default(MEDIUM)
+    status          ComplaintStatus   @default(SUBMITTED)
+    complaintNumber String            @unique @db.VarChar(20)
+    createdAt       DateTime          @default(now())
+    updatedAt       DateTime          @default(now()) @updatedAt
+    resolvedAt      DateTime?
+    
+    // Relations
+    user            User              @relation("userComplaints", fields: [userId], references: [id])
+    userId          String
+    ministry        Ministry          @relation(fields: [ministryId], references: [id])
+    ministryId      String
+    assignedTo      User?             @relation("assignedComplaints", fields: [assignedToId], references: [id])
+    assignedToId    String?
+    
+    // Media attachments
+    attachments     ComplaintAttachment[]
+    updates         ComplaintUpdate[]
+    comments        ComplaintComment[]
+}
+
+model ComplaintAttachment {
+    id          String    @id @default(uuid())
+    fileName    String    @db.VarChar(255)
+    fileUrl     String    @db.VarChar(500)
+    fileType    String    @db.VarChar(50)
+    fileSize    Int
+    mimeType    String    @db.VarChar(100)
+    createdAt   DateTime  @default(now())
+    
+    complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+    complaintId String
+}
+
+model ComplaintUpdate {
+    id          String    @id @default(uuid())
+    status      ComplaintStatus
+    message     String    @db.VarChar(1000)
+    createdAt   DateTime  @default(now())
+    
+    complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+    complaintId String
+    updatedBy   User      @relation(fields: [updatedById], references: [id])
+    updatedById String
+}
+
+model ComplaintComment {
+    id          String    @id @default(uuid())
+    content     String    @db.VarChar(1000)
+    isInternal  Boolean   @default(false)
+    createdAt   DateTime  @default(now())
+    
+    complaint   Complaint @relation(fields: [complaintId], references: [id], onDelete: Cascade)
+    complaintId String
+    author      User      @relation(fields: [authorId], references: [id])
+    authorId    String
+}
+
+enum ComplaintPriority {
+    LOW
+    MEDIUM
+    HIGH
+    URGENT
+}
+
+enum ComplaintStatus {
+    SUBMITTED
+    UNDER_REVIEW
+    IN_PROGRESS
+    RESOLVED
+    REJECTED
+    CLOSED
+}
