@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { Box, Typography, Button, Card, CardContent } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
 
-import { AuthContext } from "@/app/(twitter)/layout";
+import { AuthContext } from "@/contexts/AuthContext";
 import Search from "../misc/Search";
 import WhoToFollow from "../misc/WhoToFollow";
 import Legal from "../misc/Legal";

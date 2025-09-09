@@ -10,7 +10,7 @@ import InfiniteScroll from "@/components/misc/InfiniteScroll";
 import { useInfiniteComplaints } from "@/hooks/useInfiniteComplaints";
 import { ComplaintProps } from "@/types/ComplaintProps";
 import { useContext } from "react";
-import { AuthContext } from "../../layout";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function UserComplaints({
   params: { username },

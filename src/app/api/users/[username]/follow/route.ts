@@ -45,8 +45,8 @@ export async function POST(request: NextRequest, { params: { username } }: { par
         const notificationContent = {
             sender: {
                 username: verifiedToken.username,
-                name: verifiedToken.name,
-                photoUrl: verifiedToken.photoUrl,
+                name: verifiedToken.name || verifiedToken.username,
+                photoUrl: verifiedToken.photoUrl || "/assets/egg.jpg",
             },
             content: null,
         };

@@ -341,17 +341,10 @@ export default function PublicComplaintDetailsPage() {
                   Attachments ({complaint.attachments.length})
                 </Typography>
                 <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-                  {complaint.attachments.map((attachment, index) => (
-                    <Box key={index} sx={{ maxWidth: 200 }}>
-                      <MediaDisplay
-                        fileUrl={attachment.fileUrl}
-                        fileName={attachment.fileName}
-                        fileType={attachment.fileType}
-                        fileSize={attachment.fileSize}
-                        mimeType={attachment.mimeType}
-                      />
-                    </Box>
-                  ))}
+                  <MediaDisplay
+                    attachments={complaint.attachments}
+                    showAll={true}
+                  />
                 </Box>
               </Box>
             )}

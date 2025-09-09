@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { AuthContext } from "@/app/(twitter)/layout";
+import { AuthContext } from "@/contexts/AuthContext";
 import { updateUserFollows } from "@/utilities/fetch";
 import { UserProps, UserResponse } from "@/types/UserProps";
 import CustomSnackbar from "../misc/CustomSnackbar";

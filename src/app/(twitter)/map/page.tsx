@@ -5,7 +5,7 @@ import { Box, Typography, Alert, CircularProgress } from "@mui/material";
 
 import { useInfiniteComplaints } from "@/hooks/useInfiniteComplaints";
 import DynamicMap from "@/components/map/DynamicMap";
-import { AuthContext } from "../layout";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function MapPage() {
     const { token, isPending } = useContext(AuthContext);

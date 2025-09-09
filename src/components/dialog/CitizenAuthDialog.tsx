@@ -22,7 +22,7 @@ import { checkUserExists, createUser, logIn } from "@/utilities/fetch";
 import CircularLoading from "../misc/CircularLoading";
 import CustomSnackbar from "../misc/CustomSnackbar";
 import { SnackbarProps } from "@/types/SnackbarProps";
-import { AuthContext } from "@/app/(twitter)/layout";
+import { AuthContext } from "@/contexts/AuthContext";
 
 export default function CitizenAuthDialog({ open, handleClose }: CitizenAuthDialogProps) {
     const [snackbar, setSnackbar] = useState<SnackbarProps>({ message: "", severity: "success", open: false });

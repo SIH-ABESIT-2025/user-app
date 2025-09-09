@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 
 import Link from "next/link";
 import CitizenAuthDialog from "../dialog/CitizenAuthDialog";
-import { AuthContext } from "@/app/(twitter)/layout";
+import { AuthContext } from "@/contexts/AuthContext";
 import Image from "next/image";
 import { Button } from "@mui/material";
 

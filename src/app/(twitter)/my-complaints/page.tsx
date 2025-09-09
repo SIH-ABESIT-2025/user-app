@@ -8,7 +8,7 @@ import NothingToShow from "@/components/misc/NothingToShow";
 import ComplaintCard from "@/components/complaint/ComplaintCard";
 import InfiniteScroll from "@/components/misc/InfiniteScroll";
 import { useInfiniteComplaints } from "@/hooks/useInfiniteComplaints";
-import { AuthContext } from "../layout";
+import { AuthContext } from "@/contexts/AuthContext";
 import { ComplaintProps } from "@/types/ComplaintProps";
 
 export default function MyComplaintsPage() {

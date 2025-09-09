@@ -10,7 +10,7 @@ import { AiFillTwitterCircle } from "react-icons/ai";
 import NewComplaintDialog from "../dialog/NewComplaintDialog";
 import LogOutDialog from "../dialog/LogOutDialog";
 import { logout } from "@/utilities/fetch";
-import { AuthContext } from "@/app/(twitter)/layout";
+import { AuthContext } from "@/contexts/AuthContext";
 import { getFullURL } from "@/utilities/misc/getFullURL";
 import UnreadNotificationsBadge from "../misc/UnreadNotificationsBadge";
 import Image from "next/image";

@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { FaArrowLeft, FaRegEnvelope } from "react-icons/fa";
 import { Avatar } from "@mui/material";
 
-import { AuthContext } from "@/app/(twitter)/layout";
+import { AuthContext } from "@/contexts/AuthContext";
 import { UserProps } from "@/types/UserProps";
 import TweetArrayLength from "../tweet/TweetArrayLength";
 import Follow from "./Follow";

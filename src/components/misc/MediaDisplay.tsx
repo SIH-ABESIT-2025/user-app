@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, IconButton, Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { FaPlay, FaPause, FaVolumeUp, FaDownload, FaExpand } from "react-icons/fa";
+import Image from "next/image";
 import { ComplaintAttachmentProps } from "@/types/ComplaintProps";
 import { supabase } from "@/utilities/storage";
 
@@ -85,13 +86,12 @@ export default function MediaDisplay({ attachments, maxDisplay = 3, showAll = fa
                             onClick={() => handleMediaClick(attachment)}
                         >
                             {isImage ? (
-                                <Box sx={{ width: 200, height: 150 }}>
-                                    <img
+                                <Box sx={{ width: 200, height: 150, position: 'relative' }}>
+                                    <Image
                                         src={publicUrl}
                                         alt={attachment.fileName}
+                                        fill
                                         style={{
-                                            width: '100%',
-                                            height: '100%',
                                             objectFit: 'cover'
                                         }}
                                     />
@@ -249,16 +249,16 @@ export default function MediaDisplay({ attachments, maxDisplay = 3, showAll = fa
                         </DialogTitle>
                         <DialogContent>
                             {selectedMedia.mimeType.startsWith('image/') && (
-                                <img
-                                    src={getPublicUrl(selectedMedia.fileUrl)}
-                                    alt={selectedMedia.fileName}
-                                    style={{
-                                        width: '100%',
-                                        height: 'auto',
-                                        maxHeight: '70vh',
-                                        objectFit: 'contain'
-                                    }}
-                                />
+                                <Box sx={{ position: 'relative', width: '100%', height: '70vh' }}>
+                                    <Image
+                                        src={getPublicUrl(selectedMedia.fileUrl)}
+                                        alt={selectedMedia.fileName}
+                                        fill
+                                        style={{
+                                            objectFit: 'contain'
+                                        }}
+                                    />
+                                </Box>
                             )}
                             {selectedMedia.mimeType.startsWith('video/') && (
                                 <video
