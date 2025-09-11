@@ -3,7 +3,7 @@ import { Box, Typography, IconButton, Dialog, DialogContent, DialogTitle } from 
 import { FaPlay, FaPause, FaVolumeUp, FaDownload, FaExpand } from "react-icons/fa";
 import Image from "next/image";
 import { ComplaintAttachmentProps } from "@/types/ComplaintProps";
-import { supabase } from "@/utilities/storage";
+import { getFileUrl } from "@/utilities/storage";
 
 interface MediaDisplayProps {
     attachments: ComplaintAttachmentProps[];
@@ -16,8 +16,7 @@ export default function MediaDisplay({ attachments, maxDisplay = 3, showAll = fa
     const [isPlaying, setIsPlaying] = useState(false);
 
     const getPublicUrl = (fileUrl: string) => {
-        const { data } = supabase.storage.from("primary").getPublicUrl(fileUrl);
-        return  data.publicUrl;
+        return getFileUrl(fileUrl);
     };
 
     const formatFileSize = (bytes: number) => {
@@ -35,20 +34,13 @@ export default function MediaDisplay({ attachments, maxDisplay = 3, showAll = fa
 
     const handleDownload = async (attachment: ComplaintAttachmentProps) => {
         try {
-            const { data, error } = await supabase.storage
-                .from("primary")
-                .download(attachment.fileUrl);
-            
-            if (error) throw error;
-            
-            const url = URL.createObjectURL(data);
+            const url = getFileUrl(attachment.fileUrl);
             const link = document.createElement('a');
             link.href = url;
             link.download = attachment.fileName;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            URL.revokeObjectURL(url);
         } catch (error) {
             console.error('Error downloading file:', error);
         }

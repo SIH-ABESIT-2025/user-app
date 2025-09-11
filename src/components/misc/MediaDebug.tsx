@@ -1,5 +1,5 @@
 import { Box, Typography, Button } from "@mui/material";
-import { supabase } from "@/utilities/storage";
+import { getFileUrl } from "@/utilities/storage";
 import { ComplaintAttachmentProps } from "@/types/ComplaintProps";
 
 interface MediaDebugProps {
@@ -7,24 +7,23 @@ interface MediaDebugProps {
 }
 
 export default function MediaDebug({ attachments }: MediaDebugProps) {
-    const testSupabaseConnection = async () => {
+    const testLocalStorage = async () => {
         try {
-            console.log('Testing Supabase connection...');
-            console.log('Supabase URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
-            console.log('Supabase Key:', process.env.NEXT_PUBLIC_SUPABASE_KEY ? 'Present' : 'Missing');
+            console.log('Testing local storage...');
+            console.log('Using local file storage instead of Supabase');
             
-            // Test listing files in the primary bucket
-            const { data, error } = await supabase.storage
-                .from('primary')
-                .list('', { limit: 5 });
+            // Test if we can access the uploads directory
+            const response = await fetch('/api/upload', {
+                method: 'HEAD'
+            });
             
-            if (error) {
-                console.error('Supabase storage error:', error);
+            if (response.ok) {
+                console.log('Upload API is accessible');
             } else {
-                console.log('Files in primary bucket:', data);
+                console.log('Upload API returned:', response.status);
             }
         } catch (error) {
-            console.error('Connection test error:', error);
+            console.error('Storage test error:', error);
         }
     };
 
@@ -38,8 +37,8 @@ export default function MediaDebug({ attachments }: MediaDebugProps) {
             });
             
             try {
-                const { data } = supabase.storage.from("primary").getPublicUrl(attachment.fileUrl);
-                console.log(`Public URL for ${attachment.fileName}:`, data.publicUrl);
+                const publicUrl = getFileUrl(attachment.fileUrl);
+                console.log(`Public URL for ${attachment.fileName}:`, publicUrl);
             } catch (error) {
                 console.error(`Error getting URL for ${attachment.fileName}:`, error);
             }
@@ -50,8 +49,8 @@ export default function MediaDebug({ attachments }: MediaDebugProps) {
         return (
             <Box sx={{ padding: 2, backgroundColor: '#f5f5f5', borderRadius: 1, margin: 2 }}>
                 <Typography variant="h6">Media Debug - No Attachments</Typography>
-                <Button onClick={testSupabaseConnection} variant="outlined" sx={{ mt: 1 }}>
-                    Test Supabase Connection
+                <Button onClick={testLocalStorage} variant="outlined" sx={{ mt: 1 }}>
+                    Test Local Storage
                 </Button>
             </Box>
         );
@@ -62,8 +61,8 @@ export default function MediaDebug({ attachments }: MediaDebugProps) {
             <Typography variant="h6">Media Debug - {attachments.length} Attachments</Typography>
             
             <Box sx={{ marginTop: 2 }}>
-                <Button onClick={testSupabaseConnection} variant="outlined" sx={{ mr: 1 }}>
-                    Test Supabase Connection
+                <Button onClick={testLocalStorage} variant="outlined" sx={{ mr: 1 }}>
+                    Test Local Storage
                 </Button>
                 <Button onClick={testAttachmentUrls} variant="outlined">
                     Test Attachment URLs
@@ -73,7 +72,7 @@ export default function MediaDebug({ attachments }: MediaDebugProps) {
             <Box sx={{ marginTop: 2 }}>
                 <Typography variant="subtitle2">Attachment Details:</Typography>
                 {attachments.map((attachment, index) => {
-                    const { data } = supabase.storage.from("primary").getPublicUrl(attachment.fileUrl);
+                    const publicUrl = getFileUrl(attachment.fileUrl);
                     return (
                         <Box key={index} sx={{ marginTop: 1, padding: 1, backgroundColor: 'white', borderRadius: 1 }}>
                             <Typography variant="body2">
@@ -86,7 +85,7 @@ export default function MediaDebug({ attachments }: MediaDebugProps) {
                                 <strong>Type:</strong> {attachment.mimeType}
                             </Typography>
                             <Typography variant="body2">
-                                <strong>Public URL:</strong> {data.publicUrl}
+                                <strong>Public URL:</strong> {publicUrl}
                             </Typography>
                             <Typography variant="body2">
                                 <strong>Size:</strong> {attachment.fileSize} bytes

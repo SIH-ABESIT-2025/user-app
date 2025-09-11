@@ -1,11 +1,12 @@
-import { createClient } from "@supabase/supabase-js";
-
-const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const KEY = process.env.NEXT_PUBLIC_SUPABASE_KEY;
-
-if (!URL || !KEY) throw new Error("Supabase credentials are not provided.");
-
-export const supabase = createClient(URL, KEY);
+// Local file storage utilities
+export const getFileUrl = (fileUrl: string) => {
+    // If it's already a full URL, return as is
+    if (fileUrl.startsWith('http')) {
+        return fileUrl;
+    }
+    // For local files, return the path as is (will be served by Next.js)
+    return fileUrl;
+};
 
 // Client-side upload function that uses the API route for security
 export const uploadFile = async (file: File) => {
@@ -31,19 +32,7 @@ export const uploadFile = async (file: File) => {
     }
 };
 
-// Direct Supabase upload (for cases where RLS is properly configured)
+// Legacy function for compatibility - now just calls uploadFile
 export const uploadFileDirect = async (file: File) => {
-    const fileName = `${Date.now()}-${file.name}`;
-    const { data, error } = await supabase.storage.from("primary").upload(fileName, file);
-    if (error) {
-        console.error('Upload error:', error);
-        return null;
-    }
-    return {
-        fileName: file.name,
-        fileUrl: data.path,
-        fileType: file.type,
-        fileSize: file.size,
-        mimeType: file.type
-    };
+    return await uploadFile(file);
 };

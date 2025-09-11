@@ -11,6 +11,8 @@ export type UserProps = {
     photoUrl?: string;
     headerUrl?: string;
     isPremium: boolean;
+    role: 'CITIZEN' | 'MINISTRY_STAFF' | 'ADMIN' | 'SUPER_ADMIN';
+    isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
     followers: UserProps[];

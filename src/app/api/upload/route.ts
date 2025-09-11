@@ -2,13 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import { verifyJwtToken } from "@/utilities/auth";
 import { UserProps } from "@/types/UserProps";
-import { createClient } from "@supabase/supabase-js";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!;
-
-// Create a Supabase client with service role key for server-side operations
-const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+import { writeFile, mkdir } from "fs/promises";
+import { join } from "path";
 
 export async function POST(request: NextRequest) {
     try {
@@ -51,27 +46,21 @@ export async function POST(request: NextRequest) {
         // Generate unique filename
         const fileName = `${Date.now()}-${file.name}`;
         
+        // Create uploads directory if it doesn't exist
+        const uploadsDir = join(process.cwd(), 'public', 'uploads');
+        await mkdir(uploadsDir, { recursive: true });
+        
         // Convert file to buffer
         const fileBuffer = await file.arrayBuffer();
         
-        // Upload to Supabase storage using service role key
-        const { data, error } = await supabaseAdmin.storage
-            .from('primary')
-            .upload(fileName, fileBuffer, {
-                contentType: file.type,
-                cacheControl: '3600',
-                upsert: false
-            });
-
-        if (error) {
-            console.error('Supabase upload error:', error);
-            return NextResponse.json({ error: "Upload failed" }, { status: 500 });
-        }
+        // Save file to local storage
+        const filePath = join(uploadsDir, fileName);
+        await writeFile(filePath, Buffer.from(fileBuffer));
 
         // Return file information
         return NextResponse.json({
             fileName: file.name,
-            fileUrl: data.path,
+            fileUrl: `/uploads/${fileName}`,
             fileType: file.type,
             fileSize: file.size,
             mimeType: file.type

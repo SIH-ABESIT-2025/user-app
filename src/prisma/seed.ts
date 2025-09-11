@@ -1,4 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcrypt');
 
 const prisma = new PrismaClient();
 
@@ -78,8 +79,10 @@ const ministries = [
 ];
 
 async function main() {
-    console.log('Starting to seed ministries...');
+    console.log('Starting to seed data...');
     
+    // Seed ministries
+    console.log('Seeding ministries...');
     for (const ministry of ministries) {
         await prisma.ministry.upsert({
             where: { name: ministry.name },
@@ -89,7 +92,55 @@ async function main() {
         console.log(`Seeded ministry: ${ministry.name}`);
     }
     
-    console.log('Ministries seeding completed!');
+    // Create admin user
+    console.log('Creating admin user...');
+    const hashedPassword = await bcrypt.hash('admin123', 10);
+    
+    await prisma.user.upsert({
+        where: { username: 'admin' },
+        update: {
+            role: 'SUPER_ADMIN',
+            isActive: true
+        },
+        create: {
+            username: 'admin',
+            password: hashedPassword,
+            email: 'admin@jharkhand.gov.in',
+            phoneNumber: '+91-9876543210',
+            name: 'System Administrator',
+            description: 'Super Administrator of Jharkhand Civic Platform',
+            role: 'SUPER_ADMIN',
+            isActive: true,
+            isPremium: true
+        }
+    });
+    console.log('Admin user created: admin / admin123');
+    
+    // Create ministry staff user
+    console.log('Creating ministry staff user...');
+    const staffPassword = await bcrypt.hash('staff123', 10);
+    
+    await prisma.user.upsert({
+        where: { username: 'ministry_staff' },
+        update: {
+            role: 'MINISTRY_STAFF',
+            isActive: true
+        },
+        create: {
+            username: 'ministry_staff',
+            password: staffPassword,
+            email: 'staff@jharkhand.gov.in',
+            phoneNumber: '+91-9876543211',
+            name: 'Ministry Staff',
+            description: 'Ministry Staff Member',
+            role: 'MINISTRY_STAFF',
+            isActive: true,
+            isPremium: false
+        }
+    });
+    console.log('Ministry staff user created: ministry_staff / staff123');
+    
+    console.log('Seeding completed!');
 }
 
 main()

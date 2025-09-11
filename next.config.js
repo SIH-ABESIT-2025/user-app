@@ -2,7 +2,7 @@
 
 const nextConfig = {
     images: {
-        domains: ["ekteyncawtxgonkiblvp.supabase.co","upload.wikimedia.org","media.assettype.com"],
+        domains: ["upload.wikimedia.org","media.assettype.com"],
     },
     async headers() {
         return [

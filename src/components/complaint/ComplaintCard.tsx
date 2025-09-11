@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 
 import { ComplaintProps, ComplaintStatus, ComplaintPriority } from "@/types/ComplaintProps";
 import { getFullURL } from "@/utilities/misc/getFullURL";
-import { supabase } from "@/utilities/storage";
+import { getFileUrl } from "@/utilities/storage";
 import MediaDisplay from "@/components/misc/MediaDisplay";
 
 interface ComplaintCardProps {
@@ -63,20 +63,7 @@ export default function ComplaintCard({ complaint, showActions = false, onStatus
 
     const getAvatarUrl = (photoUrl?: string) => {
         if (!photoUrl) return "/assets/egg.jpg";
-        
-        // If it's a Supabase storage URL, use the Supabase client
-        if (photoUrl.includes('supabase') || photoUrl.startsWith('http')) {
-            return photoUrl;
-        }
-        
-        // If it's a relative path, try to get it from Supabase storage
-        try {
-            const { data } = supabase.storage.from("primary").getPublicUrl(photoUrl);
-            return data.publicUrl;
-        } catch (error) {
-            console.error('Error getting avatar URL:', error);
-            return "/assets/egg.jpg";
-        }
+        return getFileUrl(photoUrl);
     };
 
     return (

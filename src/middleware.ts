@@ -18,6 +18,8 @@ export const middleware = async (request: NextRequest) => {
         "/messages/create",
     ];
     const staticRoutesPrivate = ["/notifications", "/messages"];
+    const adminRoutes = ["/admin"];
+    const publicAdminRoutes = ["/admin-login"];
 
     const hasVerifiedToken = token && (await verifyJwtToken(token));
 
@@ -27,6 +29,17 @@ export const middleware = async (request: NextRequest) => {
 
     if (!hasVerifiedToken && staticRoutesPrivate.some((route) => nextUrl.pathname.startsWith(route))) {
         return NextResponse.redirect(new URL("/", url));
+    }
+
+    // Admin route protection - exclude public admin routes like login
+    if (adminRoutes.some((route) => nextUrl.pathname.startsWith(route)) && 
+        !publicAdminRoutes.some((route) => nextUrl.pathname.startsWith(route))) {
+        if (!hasVerifiedToken) {
+            return NextResponse.redirect(new URL("/admin-login", url));
+        }
+        if (hasVerifiedToken.role !== "ADMIN" && hasVerifiedToken.role !== "SUPER_ADMIN") {
+            return NextResponse.redirect(new URL("/admin-login", url));
+        }
     }
 
     // Allow both authenticated and unauthenticated users to access home page

@@ -39,6 +39,8 @@ export async function POST(request: NextRequest) {
             location: user.location,
             website: user.website,
             isPremium: user.isPremium,
+            role: user.role,
+            isActive: user.isActive,
             createdAt: user.createdAt,
             photoUrl: user.photoUrl,
             headerUrl: user.headerUrl,
@@ -52,6 +54,18 @@ export async function POST(request: NextRequest) {
 
         const response = NextResponse.json({
             success: true,
+            user: {
+                id: user.id,
+                username: user.username,
+                name: user.name,
+                email: user.email,
+                phoneNumber: user.phoneNumber,
+                role: user.role,
+                isActive: user.isActive,
+                isPremium: user.isPremium,
+                photoUrl: user.photoUrl,
+                createdAt: user.createdAt
+            }
         });
 
         response.cookies.set({

@@ -34,7 +34,7 @@ import Image from "next/image";
 
 import { ComplaintProps } from "@/types/ComplaintProps";
 import { getComplaint } from "@/utilities/fetch";
-import { supabase } from "@/utilities/storage";
+import { getFileUrl } from "@/utilities/storage";
 import MediaDisplay from "@/components/misc/MediaDisplay";
 import CitizenAuthDialog from "@/components/dialog/CitizenAuthDialog";
 
@@ -62,16 +62,7 @@ const getPriorityColor = (priority: string) => {
 
 const getAvatarUrl = (photoUrl?: string) => {
   if (!photoUrl) return "/assets/egg.jpg";
-  if (photoUrl.includes('supabase') || photoUrl.startsWith('http')) {
-    return photoUrl;
-  }
-  try {
-    const { data } = supabase.storage.from("primary").getPublicUrl(photoUrl);
-    return data.publicUrl;
-  } catch (error) {
-    console.error('Error getting avatar URL:', error);
-    return "/assets/egg.jpg";
-  }
+  return getFileUrl(photoUrl);
 };
 
 export default function PublicComplaintDetailsPage() {

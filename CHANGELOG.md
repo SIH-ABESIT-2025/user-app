@@ -27,7 +27,7 @@
 -   [x] emote picker in new tweet
 -   [x] photo upload in new tweet
 -   [x] more compact uploader for photo upload,
--   [x] supabase storage is ok to use for avatars and images? if not use aws
+-   [x] Migrated from Supabase to local PostgreSQL and file storage
 -   [x] clicking images should open full screen images
 -   [x] avatar logic
 -   [x] handle default avatar / twitter egg

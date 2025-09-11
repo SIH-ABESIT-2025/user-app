@@ -7,7 +7,7 @@ import { formatDistanceToNow } from "date-fns";
 import { useRouter } from "next/navigation";
 
 import { ComplaintProps } from "@/types/ComplaintProps";
-import { supabase } from "@/utilities/storage";
+import { getFileUrl } from "@/utilities/storage";
 
 interface MapComponentProps {
     complaints: ComplaintProps[];
@@ -39,18 +39,7 @@ const getPriorityColor = (priority: string) => {
 
 const getAvatarUrl = (photoUrl?: string) => {
     if (!photoUrl) return "/assets/egg.jpg";
-    
-    if (photoUrl.includes("supabase") || photoUrl.startsWith("http")) {
-        return photoUrl;
-    }
-    
-    try {
-        const { data } = supabase.storage.from("primary").getPublicUrl(photoUrl);
-        return data.publicUrl;
-    } catch (error) {
-        console.error("Error getting avatar URL:", error);
-        return "/assets/egg.jpg";
-    }
+    return getFileUrl(photoUrl);
 };
 
 export default function MapComponent({ complaints, userLocation, onLocationUpdate }: MapComponentProps) {

@@ -4,9 +4,8 @@ generator client {
 }
 
 datasource db {
-    provider          = "postgresql"
-    url               = env("DATABASE_URL")
-    directUrl         = env("DIRECT_DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
@@ -22,6 +21,8 @@ model User {
     photoUrl         String?
     headerUrl        String?
     isPremium        Boolean        @default(false)
+    role             UserRole       @default(CITIZEN)
+    isActive         Boolean        @default(true)
     createdAt        DateTime       @default(now())
     updatedAt        DateTime       @default(now()) @updatedAt
     createdTweets    Tweet[]        @relation("userTweets")
@@ -169,4 +170,11 @@ enum ComplaintStatus {
     RESOLVED
     REJECTED
     CLOSED
+}
+
+enum UserRole {
+    CITIZEN
+    MINISTRY_STAFF
+    ADMIN
+    SUPER_ADMIN
 }

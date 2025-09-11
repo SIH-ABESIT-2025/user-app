@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, Menu, MenuItem } from "@mui/material";
-import { FaHome, FaBell, FaUser, FaCog, FaEllipsisH, FaExclamationTriangle, FaClipboardList, FaMap } from "react-icons/fa";
+import { FaHome, FaBell, FaUser, FaCog, FaEllipsisH, FaExclamationTriangle, FaClipboardList, FaMap, FaUserShield } from "react-icons/fa";
 import { AiFillTwitterCircle } from "react-icons/ai";
 
 import NewComplaintDialog from "../dialog/NewComplaintDialog";
@@ -95,6 +95,15 @@ export default function LeftSidebar() {
                                     </div>
                                 </Link>
                             </li>
+                            {(token?.role === "ADMIN" || token?.role === "SUPER_ADMIN") && (
+                                <li>
+                                    <Link href="/admin">
+                                        <div className={`nav-link ${pathname.startsWith("/admin") ? "active" : ""}`}>
+                                            <FaUserShield /> <span className="nav-title">Admin Panel</span>
+                                        </div>
+                                    </Link>
+                                </li>
+                            )}
                         </ul>
                     </nav>
                     {token && (
