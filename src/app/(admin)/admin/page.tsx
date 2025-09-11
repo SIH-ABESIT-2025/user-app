@@ -64,6 +64,12 @@ interface DashboardStats {
     urgentComplaints: number;
     recentComplaints: ComplaintProps[];
     recentUsers: UserProps[];
+    trends: {
+        complaints: number;
+        users: number;
+        ministries: number;
+        resolutionRate: number;
+    };
     monthlyStats: {
         complaints: number;
         users: number;
@@ -92,6 +98,12 @@ export default function AdminDashboard() {
         urgentComplaints: 0,
         recentComplaints: [],
         recentUsers: [],
+        trends: {
+            complaints: 0,
+            users: 0,
+            ministries: 0,
+            resolutionRate: 0
+        },
         monthlyStats: {
             complaints: 0,
             users: 0,
@@ -128,12 +140,6 @@ export default function AdminDashboard() {
             ]);
 
             // Mock additional data for demonstration
-            const mockMonthlyStats = {
-                complaints: Math.floor(Math.random() * 50) + 20,
-                users: Math.floor(Math.random() * 20) + 10,
-                resolutionRate: Math.floor(Math.random() * 20) + 70
-            };
-
             const mockTopMinistries = [
                 { name: "Public Works", complaints: 45, resolved: 38 },
                 { name: "Health & Family Welfare", complaints: 32, resolved: 28 },
@@ -151,7 +157,17 @@ export default function AdminDashboard() {
                 totalUsers: usersData.total || 0,
                 recentUsers: usersData.recent || [],
                 totalMinistries: ministriesData.total || 0,
-                monthlyStats: mockMonthlyStats,
+                trends: {
+                    complaints: complaintsData.trends?.complaints || 0,
+                    users: usersData.trends?.users || 0,
+                    ministries: ministriesData.trends?.ministries || 0,
+                    resolutionRate: complaintsData.trends?.resolutionRate || 0
+                },
+                monthlyStats: {
+                    complaints: complaintsData.monthly?.current?.complaints || 0,
+                    users: usersData.monthly?.current?.users || 0,
+                    resolutionRate: complaintsData.trends?.resolutionRate || 0
+                },
                 topMinistries: mockTopMinistries,
                 systemHealth: {
                     databaseStatus: 'healthy',
@@ -208,28 +224,67 @@ export default function AdminDashboard() {
     };
 
     const StatCard = ({ title, value, icon, color, trend, subtitle }: any) => (
-        <Card sx={{ height: '100%', background: `linear-gradient(135deg, ${color}15 0%, ${color}05 100%)` }}>
-            <CardContent>
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-                    <Box>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'text.secondary' }}>
+        <Card sx={{ 
+            height: '100%', 
+            background: `linear-gradient(135deg, ${color}15 0%, ${color}05 100%)`,
+            transition: 'transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out',
+            '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: 3
+            }
+        }}>
+            <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+                <Box sx={{ 
+                    display: 'flex', 
+                    justifyContent: 'space-between', 
+                    alignItems: 'flex-start', 
+                    mb: 2,
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    gap: { xs: 1, sm: 0 }
+                }}>
+                    <Box sx={{ flex: 1 }}>
+                        <Typography variant="h6" sx={{ 
+                            fontWeight: 'bold', 
+                            color: 'text.secondary',
+                            fontSize: { xs: '0.875rem', sm: '1rem' }
+                        }}>
                             {title}
                         </Typography>
-                        <Typography variant="h3" sx={{ fontWeight: 'bold', color: color }}>
+                        <Typography variant="h3" sx={{ 
+                            fontWeight: 'bold', 
+                            color: color,
+                            fontSize: { xs: '1.75rem', sm: '2.125rem', md: '3rem' }
+                        }}>
                             {value}
                         </Typography>
                         {subtitle && (
-                            <Typography variant="body2" color="text.secondary">
+                            <Typography variant="body2" color="text.secondary" sx={{
+                                fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                            }}>
                                 {subtitle}
                             </Typography>
                         )}
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        {icon}
+                    <Box sx={{ 
+                        display: 'flex', 
+                        alignItems: { xs: 'center', sm: 'flex-end' },
+                        gap: 1,
+                        flexDirection: { xs: 'row', sm: 'column' }
+                    }}>
+                        <Box sx={{ fontSize: { xs: '1.5rem', sm: '2rem' } }}>
+                            {icon}
+                        </Box>
                         {trend && (
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <Box sx={{ 
+                                display: 'flex', 
+                                alignItems: 'center', 
+                                gap: 0.5,
+                                flexDirection: { xs: 'row', sm: 'column' }
+                            }}>
                                 {getTrendIcon(trend)}
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="text.secondary" sx={{
+                                    fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                }}>
                                     {trend > 0 ? `+${trend}%` : `${trend}%`}
                                 </Typography>
                             </Box>
@@ -263,26 +318,41 @@ export default function AdminDashboard() {
             {/* Header Section */}
             <Box sx={{ 
                 display: 'flex', 
+                flexDirection: { xs: 'column', sm: 'row' },
                 justifyContent: 'space-between', 
-                alignItems: 'center', 
+                alignItems: { xs: 'flex-start', sm: 'center' }, 
                 mb: 4,
-                p: 3,
+                p: { xs: 2, sm: 3 },
                 background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                 borderRadius: 2,
-                color: 'white'
+                color: 'white',
+                gap: { xs: 2, sm: 0 }
             }}>
                 <Box>
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
+                    <Typography variant="h4" sx={{ 
+                        fontWeight: 'bold', 
+                        mb: 1,
+                        fontSize: { xs: '1.5rem', sm: '2rem', md: '2.125rem' }
+                    }}>
                         Admin Dashboard
                     </Typography>
-                    <Typography variant="body1" sx={{ opacity: 0.9 }}>
+                    <Typography variant="body1" sx={{ 
+                        opacity: 0.9,
+                        fontSize: { xs: '0.875rem', sm: '1rem' }
+                    }}>
                         Welcome back! Here's what's happening with your system today.
                     </Typography>
                 </Box>
-                <Box sx={{ display: 'flex', gap: 2 }}>
+                <Box sx={{ 
+                    display: 'flex', 
+                    gap: 2,
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    width: { xs: '100%', sm: 'auto' }
+                }}>
                     <Button
                         variant="outlined"
                         startIcon={<FaDownload />}
+                        fullWidth
                         sx={{ 
                             color: 'white', 
                             borderColor: 'white',
@@ -296,6 +366,7 @@ export default function AdminDashboard() {
                         startIcon={refreshing ? <CircularProgress size={16} color="inherit" /> : <FaSync />}
                         onClick={handleRefresh}
                         disabled={refreshing}
+                        fullWidth
                         sx={{ 
                             backgroundColor: 'rgba(255,255,255,0.2)',
                             '&:hover': { backgroundColor: 'rgba(255,255,255,0.3)' }
@@ -309,24 +380,46 @@ export default function AdminDashboard() {
             {/* System Health Alert */}
             <Alert 
                 severity={stats.systemHealth?.databaseStatus === 'healthy' ? 'success' : 'warning'} 
-                sx={{ mb: 3 }}
+                sx={{ 
+                    mb: 3,
+                    fontSize: { xs: '0.875rem', sm: '1rem' }
+                }}
                 icon={stats.systemHealth?.databaseStatus === 'healthy' ? <FaCheckCircle /> : <FaExclamationTriangle />}
             >
-                System Status: {stats.systemHealth?.databaseStatus?.toUpperCase() || 'UNKNOWN'} • 
-                Storage Usage: {stats.systemHealth?.storageUsage || 0}% • 
-                Active Users: {stats.systemHealth?.activeUsers || 0}
+                <Box sx={{ 
+                    display: 'flex', 
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    gap: { xs: 0.5, sm: 1 },
+                    alignItems: { xs: 'flex-start', sm: 'center' }
+                }}>
+                    <Typography component="span">
+                        System Status: {stats.systemHealth?.databaseStatus?.toUpperCase() || 'UNKNOWN'}
+                    </Typography>
+                    <Typography component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+                        •
+                    </Typography>
+                    <Typography component="span">
+                        Storage Usage: {stats.systemHealth?.storageUsage || 0}%
+                    </Typography>
+                    <Typography component="span" sx={{ display: { xs: 'none', sm: 'inline' } }}>
+                        •
+                    </Typography>
+                    <Typography component="span">
+                        Active Users: {stats.systemHealth?.activeUsers || 0}
+                    </Typography>
+                </Box>
             </Alert>
 
             {/* Main Stats Grid */}
-            <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: 4 }}>
                 <Grid item xs={12} sm={6} md={3}>
                     <StatCard
                         title="Total Complaints"
                         value={stats.totalComplaints || 0}
                         icon={<FaClipboardList size={32} />}
                         color="#1976d2"
-                        trend={12}
-                        subtitle="This month"
+                        trend={stats.trends?.complaints || 0}
+                        subtitle={`${stats.monthlyStats?.complaints || 0} this month`}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
@@ -335,8 +428,8 @@ export default function AdminDashboard() {
                         value={stats.totalUsers || 0}
                         icon={<FaUsers size={32} />}
                         color="#2e7d32"
-                        trend={8}
-                        subtitle="Registered users"
+                        trend={stats.trends?.users || 0}
+                        subtitle={`${stats.monthlyStats?.users || 0} this month`}
                     />
                 </Grid>
                 <Grid item xs={12} sm={6} md={3}>
@@ -345,7 +438,7 @@ export default function AdminDashboard() {
                         value={stats.totalMinistries || 0}
                         icon={<FaBuilding size={32} />}
                         color="#ed6c02"
-                        trend={0}
+                        trend={stats.trends?.ministries || 0}
                         subtitle="Government departments"
                     />
                 </Grid>
@@ -355,14 +448,14 @@ export default function AdminDashboard() {
                         value={`${stats.totalComplaints > 0 ? Math.round((stats.resolvedComplaints / stats.totalComplaints) * 100) : 0}%`}
                         icon={<FaCheckCircle size={32} />}
                         color="#2e7d32"
-                        trend={5}
+                        trend={stats.trends?.resolutionRate || 0}
                         subtitle={`${stats.resolvedComplaints || 0} resolved`}
                     />
                 </Grid>
             </Grid>
 
             {/* Priority & Status Overview */}
-            <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: 4 }}>
                 <Grid item xs={12} md={4}>
                     <Card sx={{ height: '100%', borderLeft: '4px solid #d32f2f' }}>
                         <CardContent>
@@ -412,7 +505,7 @@ export default function AdminDashboard() {
                                 {stats.monthlyStats?.complaints || 0}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                New complaints received
+                                New complaints this month
                             </Typography>
                         </CardContent>
                     </Card>
@@ -420,7 +513,7 @@ export default function AdminDashboard() {
             </Grid>
 
             {/* Detailed Analytics Grid */}
-            <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid container spacing={{ xs: 2, sm: 3 }} sx={{ mb: 4 }}>
                 {/* Top Ministries Performance */}
                 <Grid item xs={12} md={6}>
                     <Card sx={{ height: '100%' }}>
@@ -548,17 +641,67 @@ export default function AdminDashboard() {
                             View All Complaints
                         </Button>
                     </Box>
-                    <TableContainer component={Paper} variant="outlined">
-                        <Table>
+                    <TableContainer component={Paper} variant="outlined" sx={{ 
+                        overflowX: 'auto',
+                        '&::-webkit-scrollbar': {
+                            height: '8px',
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            backgroundColor: '#f1f1f1',
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: '#c1c1c1',
+                            borderRadius: '4px',
+                        },
+                    }}>
+                        <Table sx={{ minWidth: 650 }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Complaint Details</TableCell>
-                                    <TableCell>User</TableCell>
-                                    <TableCell>Status</TableCell>
-                                    <TableCell>Priority</TableCell>
-                                    <TableCell>Ministry</TableCell>
-                                    <TableCell>Created</TableCell>
-                                    <TableCell>Actions</TableCell>
+                                    <TableCell sx={{ 
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                    }}>
+                                        Complaint Details
+                                    </TableCell>
+                                    <TableCell sx={{ 
+                                        display: { xs: 'none', sm: 'table-cell' },
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                    }}>
+                                        User
+                                    </TableCell>
+                                    <TableCell sx={{ 
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                    }}>
+                                        Status
+                                    </TableCell>
+                                    <TableCell sx={{ 
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                    }}>
+                                        Priority
+                                    </TableCell>
+                                    <TableCell sx={{ 
+                                        display: { xs: 'none', md: 'table-cell' },
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                    }}>
+                                        Ministry
+                                    </TableCell>
+                                    <TableCell sx={{ 
+                                        display: { xs: 'none', lg: 'table-cell' },
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                    }}>
+                                        Created
+                                    </TableCell>
+                                    <TableCell sx={{ 
+                                        fontWeight: 'bold',
+                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                    }}>
+                                        Actions
+                                    </TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -566,15 +709,20 @@ export default function AdminDashboard() {
                                     <TableRow key={complaint.id} hover>
                                         <TableCell>
                                             <Box>
-                                                <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                                                <Typography variant="body2" sx={{ 
+                                                    fontWeight: 'bold',
+                                                    fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                                }}>
                                                     {complaint.title}
                                                 </Typography>
-                                                <Typography variant="caption" color="text.secondary">
+                                                <Typography variant="caption" color="text.secondary" sx={{
+                                                    fontSize: { xs: '0.625rem', sm: '0.75rem' }
+                                                }}>
                                                     {complaint.complaintNumber}
                                                 </Typography>
                                             </Box>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                 <Avatar
                                                     src={complaint.user.photoUrl || "/assets/egg.jpg"}
@@ -582,10 +730,15 @@ export default function AdminDashboard() {
                                                     sx={{ width: 32, height: 32 }}
                                                 />
                                                 <Box>
-                                                    <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
+                                                    <Typography variant="body2" sx={{ 
+                                                        fontWeight: 'bold',
+                                                        fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                                    }}>
                                                         {complaint.user.name || complaint.user.username}
                                                     </Typography>
-                                                    <Typography variant="caption" color="text.secondary">
+                                                    <Typography variant="caption" color="text.secondary" sx={{
+                                                        fontSize: { xs: '0.625rem', sm: '0.75rem' }
+                                                    }}>
                                                         @{complaint.user.username}
                                                     </Typography>
                                                 </Box>
@@ -596,6 +749,7 @@ export default function AdminDashboard() {
                                                 label={complaint.status.replace('_', ' ')}
                                                 color={getStatusColor(complaint.status) as any}
                                                 size="small"
+                                                sx={{ fontSize: { xs: '0.625rem', sm: '0.75rem' } }}
                                             />
                                         </TableCell>
                                         <TableCell>
@@ -603,18 +757,23 @@ export default function AdminDashboard() {
                                                 label={complaint.priority}
                                                 color={getPriorityColor(complaint.priority) as any}
                                                 size="small"
+                                                sx={{ fontSize: { xs: '0.625rem', sm: '0.75rem' } }}
                                             />
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell sx={{ display: { xs: 'none', md: 'table-cell' } }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                                                 <FaBuilding size={12} />
-                                                <Typography variant="body2">
+                                                <Typography variant="body2" sx={{
+                                                    fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                                }}>
                                                     {complaint.ministry.name}
                                                 </Typography>
                                             </Box>
                                         </TableCell>
-                                        <TableCell>
-                                            <Typography variant="body2" color="text.secondary">
+                                        <TableCell sx={{ display: { xs: 'none', lg: 'table-cell' } }}>
+                                            <Typography variant="body2" color="text.secondary" sx={{
+                                                fontSize: { xs: '0.75rem', sm: '0.875rem' }
+                                            }}>
                                                 {formatDistanceToNow(new Date(complaint.createdAt), { addSuffix: true })}
                                             </Typography>
                                         </TableCell>

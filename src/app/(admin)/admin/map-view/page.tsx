@@ -45,6 +45,7 @@ export default function AdminMapView() {
     const [priorityFilter, setPriorityFilter] = useState<string>("");
     const [selectedComplaint, setSelectedComplaint] = useState<MapComplaint | null>(null);
     const [detailsOpen, setDetailsOpen] = useState(false);
+    const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | undefined>(undefined);
 
     useEffect(() => {
         fetchComplaints();
@@ -164,9 +165,9 @@ export default function AdminMapView() {
                     <Card sx={{ height: '600px' }}>
                         <CardContent sx={{ height: '100%', p: 0 }}>
                             <MapComponent 
-                                markers={mapMarkers}
-                                center={[23.6102, 85.2799]} // Jharkhand center coordinates
-                                zoom={7}
+                                complaints={complaints}
+                                userLocation={userLocation}
+                                onLocationUpdate={setUserLocation}
                             />
                         </CardContent>
                     </Card>

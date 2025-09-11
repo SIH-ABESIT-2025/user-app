@@ -313,7 +313,7 @@ export default function MapComponent({ complaints, userLocation, onLocationUpdat
     };
 
     // Filter complaints that have valid coordinates
-    const complaintsWithLocation = complaints.filter(complaint => 
+    const complaintsWithLocation = (complaints || []).filter(complaint => 
         complaint.latitude && complaint.longitude
     );
 

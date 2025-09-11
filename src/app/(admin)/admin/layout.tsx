@@ -25,9 +25,10 @@ import { logout } from "@/utilities/fetch";
 import { getFullURL } from "@/utilities/misc/getFullURL";
 
 const drawerWidth = 280;
+const mobileDrawerWidth = 240;
 
 const adminMenuItems = [
-    { text: "Dashboard", icon: <FaHome />, path: "/admin/home" },
+    { text: "Dashboard", icon: <FaHome />, path: "/admin" },
     { text: "Complaints", icon: <FaClipboardList />, path: "/admin/complaints" },
     { text: "Users", icon: <FaUsers />, path: "/admin/users" },
     { text: "Ministries", icon: <FaBuilding />, path: "/admin/ministries" },
@@ -111,8 +112,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     <AppBar
                         position="fixed"
                         sx={{
-                            width: { sm: `calc(100% - ${drawerWidth}px)` },
-                            ml: { sm: `${drawerWidth}px` },
+                            width: { 
+                                xs: '100%',
+                                sm: `calc(100% - ${drawerWidth}px)` 
+                            },
+                            ml: { 
+                                xs: 0,
+                                sm: `${drawerWidth}px` 
+                            },
+                            zIndex: (theme) => theme.zIndex.drawer + 1,
                         }}
                     >
                         <Toolbar>
@@ -121,12 +129,36 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                 aria-label="open drawer"
                                 edge="start"
                                 onClick={handleDrawerToggle}
-                                sx={{ mr: 2, display: { sm: 'none' } }}
+                                sx={{ 
+                                    mr: 2, 
+                                    display: { sm: 'none' } 
+                                }}
                             >
                                 <FaBars />
                             </IconButton>
-                            <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
+                            <Typography 
+                                variant="h6" 
+                                noWrap 
+                                component="div" 
+                                sx={{ 
+                                    flexGrow: 1,
+                                    fontSize: { xs: '1rem', sm: '1.25rem' },
+                                    display: { xs: 'none', sm: 'block' }
+                                }}
+                            >
                                 Government of Jharkhand - Admin Dashboard
+                            </Typography>
+                            <Typography 
+                                variant="h6" 
+                                noWrap 
+                                component="div" 
+                                sx={{ 
+                                    flexGrow: 1,
+                                    fontSize: '1rem',
+                                    display: { xs: 'block', sm: 'none' }
+                                }}
+                            >
+                                Admin Dashboard
                             </Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                 <IconButton color="inherit">
@@ -186,7 +218,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     </AppBar>
                     <Box
                         component="nav"
-                        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+                        sx={{ 
+                            width: { sm: drawerWidth }, 
+                            flexShrink: { sm: 0 } 
+                        }}
                         aria-label="mailbox folders"
                     >
                         <Drawer
@@ -198,7 +233,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             }}
                             sx={{
                                 display: { xs: 'block', sm: 'none' },
-                                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                                '& .MuiDrawer-paper': { 
+                                    boxSizing: 'border-box', 
+                                    width: mobileDrawerWidth,
+                                    maxWidth: '80vw'
+                                },
                             }}
                         >
                             {drawer}
@@ -207,7 +246,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             variant="permanent"
                             sx={{
                                 display: { xs: 'none', sm: 'block' },
-                                '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                                '& .MuiDrawer-paper': { 
+                                    boxSizing: 'border-box', 
+                                    width: drawerWidth 
+                                },
                             }}
                             open
                         >
@@ -218,9 +260,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                         component="main"
                         sx={{
                             flexGrow: 1,
-                            p: 3,
-                            width: { sm: `calc(100% - ${drawerWidth}px)` },
-                            mt: 8,
+                            p: { xs: 2, sm: 3 },
+                            width: { 
+                                xs: '100%',
+                                sm: `calc(100% - ${drawerWidth}px)` 
+                            },
+                            mt: { xs: 7, sm: 8 },
+                            minHeight: '100vh',
+                            backgroundColor: '#f5f5f5'
                         }}
                     >
                         {children}

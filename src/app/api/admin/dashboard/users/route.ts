@@ -12,9 +12,19 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
         }
 
+        // Get current date and calculate previous month
+        const now = new Date();
+        const currentMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+        const previousMonth = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+        const previousMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0);
+
         const [
             totalUsers,
-            recentUsers
+            recentUsers,
+            // Current month data
+            currentMonthUsers,
+            // Previous month data
+            previousMonthUsers
         ] = await Promise.all([
             prisma.user.count(),
             prisma.user.findMany({
@@ -38,12 +48,43 @@ export async function GET(request: NextRequest) {
                         },
                     },
                 },
+            }),
+            // Current month
+            prisma.user.count({
+                where: {
+                    createdAt: { gte: currentMonth }
+                }
+            }),
+            // Previous month
+            prisma.user.count({
+                where: {
+                    createdAt: { 
+                        gte: previousMonth,
+                        lte: previousMonthEnd
+                    }
+                }
             })
         ]);
 
+        // Calculate user trend
+        const usersTrend = previousMonthUsers > 0 
+            ? Math.round(((currentMonthUsers - previousMonthUsers) / previousMonthUsers) * 100)
+            : currentMonthUsers > 0 ? 100 : 0;
+
         return NextResponse.json({
             total: totalUsers,
-            recent: recentUsers
+            recent: recentUsers,
+            trends: {
+                users: usersTrend
+            },
+            monthly: {
+                current: {
+                    users: currentMonthUsers
+                },
+                previous: {
+                    users: previousMonthUsers
+                }
+            }
         });
     } catch (error) {
         console.error("Error fetching user stats:", error);

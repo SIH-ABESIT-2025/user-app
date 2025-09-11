@@ -19,7 +19,6 @@ export const middleware = async (request: NextRequest) => {
     ];
     const staticRoutesPrivate = ["/notifications", "/messages"];
     const adminRoutes = ["/admin"];
-    const publicAdminRoutes = ["/admin-login"];
 
     const hasVerifiedToken = token && (await verifyJwtToken(token));
 
@@ -31,14 +30,13 @@ export const middleware = async (request: NextRequest) => {
         return NextResponse.redirect(new URL("/", url));
     }
 
-    // Admin route protection - exclude public admin routes like login
-    if (adminRoutes.some((route) => nextUrl.pathname.startsWith(route)) && 
-        !publicAdminRoutes.some((route) => nextUrl.pathname.startsWith(route))) {
+    // Admin route protection
+    if (adminRoutes.some((route) => nextUrl.pathname.startsWith(route))) {
         if (!hasVerifiedToken) {
-            return NextResponse.redirect(new URL("/admin-login", url));
+            return NextResponse.redirect(new URL("/not-authorized", url));
         }
         if (hasVerifiedToken.role !== "ADMIN" && hasVerifiedToken.role !== "SUPER_ADMIN") {
-            return NextResponse.redirect(new URL("/admin-login", url));
+            return NextResponse.redirect(new URL("/not-authorized", url));
         }
     }
 
