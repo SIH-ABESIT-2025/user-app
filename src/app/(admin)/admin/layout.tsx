@@ -75,7 +75,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
 
     if (!auth.token || (auth.token.role !== "ADMIN" && auth.token.role !== "SUPER_ADMIN")) {
-        router.push("/admin-login");
+        router.replace("/admin-login");
         return <GlobalLoading />;
     }
 

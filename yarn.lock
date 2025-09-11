@@ -38,7 +38,7 @@
   dependencies:
     "@babel/types" "^7.28.4"
 
-"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.21.0", "@babel/runtime@^7.23.9", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.12.5", "@babel/runtime@^7.18.3", "@babel/runtime@^7.21.0", "@babel/runtime@^7.23.9", "@babel/runtime@^7.28.3", "@babel/runtime@^7.5.5", "@babel/runtime@^7.8.7":
   version "7.28.4"
 
 "@babel/template@^7.27.2":
@@ -254,6 +254,13 @@
 "@mui/core-downloads-tracker@^5.18.0":
   version "5.18.0"
 
+"@mui/icons-material@^7.3.2":
+  version "7.3.2"
+  resolved "https://registry.npmjs.org/@mui/icons-material/-/icons-material-7.3.2.tgz"
+  integrity sha512-TZWazBjWXBjR6iGcNkbKklnwodcwj0SrChCNHc9BhD9rBgET22J1eFhHsEmvSvru9+opDy3umqAimQjokhfJlQ==
+  dependencies:
+    "@babel/runtime" "^7.28.3"
+
 "@mui/material@^5.13.1":
   version "5.18.0"
   dependencies:
@@ -401,49 +408,6 @@
 "@rushstack/eslint-patch@^1.3.3":
   version "1.12.0"
 
-"@supabase/auth-js@2.71.1":
-  version "2.71.1"
-  dependencies:
-    "@supabase/node-fetch" "^2.6.14"
-
-"@supabase/functions-js@2.4.5":
-  version "2.4.5"
-  dependencies:
-    "@supabase/node-fetch" "^2.6.14"
-
-"@supabase/node-fetch@^2.6.13", "@supabase/node-fetch@^2.6.14", "@supabase/node-fetch@2.6.15":
-  version "2.6.15"
-  dependencies:
-    whatwg-url "^5.0.0"
-
-"@supabase/postgrest-js@1.21.3":
-  version "1.21.3"
-  dependencies:
-    "@supabase/node-fetch" "^2.6.14"
-
-"@supabase/realtime-js@2.15.5":
-  version "2.15.5"
-  dependencies:
-    "@supabase/node-fetch" "^2.6.13"
-    "@types/phoenix" "^1.6.6"
-    "@types/ws" "^8.18.1"
-    ws "^8.18.2"
-
-"@supabase/storage-js@^2.10.4":
-  version "2.12.0"
-  dependencies:
-    "@supabase/node-fetch" "^2.6.14"
-
-"@supabase/supabase-js@^2.22.0":
-  version "2.57.2"
-  dependencies:
-    "@supabase/auth-js" "2.71.1"
-    "@supabase/functions-js" "2.4.5"
-    "@supabase/node-fetch" "2.6.15"
-    "@supabase/postgrest-js" "1.21.3"
-    "@supabase/realtime-js" "2.15.5"
-    "@supabase/storage-js" "^2.10.4"
-
 "@swc/counter@^0.1.3":
   version "0.1.3"
   resolved "https://registry.npmjs.org/@swc/counter/-/counter-0.1.3.tgz"
@@ -477,6 +441,13 @@
 
 "@tsconfig/node16@^1.0.2":
   version "1.0.4"
+
+"@types/bcrypt@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.npmjs.org/@types/bcrypt/-/bcrypt-6.0.0.tgz"
+  integrity sha512-/oJGukuH3D2+D+3H4JWLaAsJ/ji86dhRidzZ/Od7H/i8g+aCmvkeCc6Ni/f9uxGLSQVCRZkX2/lqEFG2BvWtlQ==
+  dependencies:
+    "@types/node" "*"
 
 "@types/cookie@^0.3.3":
   version "0.3.3"
@@ -518,9 +489,6 @@
     pg-protocol "*"
     pg-types "^2.2.0"
 
-"@types/phoenix@^1.6.6":
-  version "1.6.6"
-
 "@types/prop-types@*", "@types/prop-types@^15.7.12":
   version "15.7.15"
 
@@ -535,11 +503,6 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^3.0.2"
-
-"@types/ws@^8.18.1":
-  version "8.18.1"
-  dependencies:
-    "@types/node" "*"
 
 "@typescript-eslint/parser@^5.4.2 || ^6.0.0 || 7.0.0 - 7.2.0":
   version "6.21.0"
@@ -2770,9 +2733,6 @@ unbox-primitive@^1.1.0:
 undici-types@~5.26.4:
   version "5.26.5"
 
-undici-types@~7.10.0:
-  version "7.10.0"
-
 universal-cookie@^4.0.4:
   version "4.0.4"
   dependencies:
@@ -2905,9 +2865,6 @@ wrap-ansi@^8.1.0:
 
 wrappy@1:
   version "1.0.2"
-
-ws@^8.18.2:
-  version "8.18.3"
 
 xtend@^4.0.0:
   version "4.0.2"

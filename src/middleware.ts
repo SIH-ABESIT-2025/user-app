@@ -4,6 +4,7 @@ import { verifyJwtToken } from "@/utilities/auth";
 export const middleware = async (request: NextRequest) => {
     const { cookies, nextUrl, url } = request;
     const { value: token } = cookies.get("token") ?? { value: null };
+    
 
     const protectedRoutes = [
         "/like",
@@ -30,13 +31,13 @@ export const middleware = async (request: NextRequest) => {
         return NextResponse.redirect(new URL("/", url));
     }
 
-    // Admin route protection
-    if (adminRoutes.some((route) => nextUrl.pathname.startsWith(route))) {
+    // Admin route protection (exclude admin-login to prevent redirect loop)
+    if (adminRoutes.some((route) => nextUrl.pathname.startsWith(route)) && nextUrl.pathname !== "/admin-login") {
         if (!hasVerifiedToken) {
-            return NextResponse.redirect(new URL("/not-authorized", url));
+            return NextResponse.redirect(new URL("/admin-login", url));
         }
         if (hasVerifiedToken.role !== "ADMIN" && hasVerifiedToken.role !== "SUPER_ADMIN") {
-            return NextResponse.redirect(new URL("/not-authorized", url));
+            return NextResponse.redirect(new URL("/admin-login", url));
         }
     }
 

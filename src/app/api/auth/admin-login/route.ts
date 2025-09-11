@@ -14,13 +14,22 @@ export async function POST(request: NextRequest) {
         const user = await prisma.user.findFirst({
             where: {
                 username: username,
+                isActive: true, // Ensure user is active
             },
         });
 
         if (!user) {
             return NextResponse.json({
                 success: false,
-                message: "Username or password is not correct.",
+                message: "Invalid credentials. Please check your username and password.",
+            });
+        }
+
+        // Check if user has admin privileges
+        if (user.role !== "ADMIN" && user.role !== "SUPER_ADMIN") {
+            return NextResponse.json({
+                success: false,
+                message: "Access denied. You do not have admin privileges.",
             });
         }
 
@@ -29,7 +38,7 @@ export async function POST(request: NextRequest) {
         if (!isPasswordValid) {
             return NextResponse.json({
                 success: false,
-                message: "Username or password is not correct.",
+                message: "Invalid credentials. Please check your username and password.",
             });
         }
 
@@ -56,16 +65,32 @@ export async function POST(request: NextRequest) {
 
         const response = NextResponse.json({
             success: true,
+            message: "Login successful!",
+            user: {
+                id: user.id,
+                username: user.username,
+                name: user.name,
+                role: user.role,
+                isActive: user.isActive,
+            }
         });
 
         response.cookies.set({
             name: "token",
             value: token,
             path: "/",
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
         });
 
         return response;
     } catch (error: unknown) {
-        return NextResponse.json({ success: false, error });
+        console.error("Admin login error:", error);
+        return NextResponse.json({ 
+            success: false, 
+            message: "An unexpected error occurred. Please try again later.",
+            error: process.env.NODE_ENV === "development" ? error : undefined
+        }, { status: 500 });
     }
 }
