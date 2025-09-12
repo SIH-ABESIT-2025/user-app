@@ -589,7 +589,7 @@ export default function AdminDashboard() {
                                         <ListItem key={user.id} sx={{ px: 0 }}>
                                             <ListItemAvatar>
                                                 <Avatar
-                                                    src={user.photoUrl || "/assets/egg.jpg"}
+                                                    src={user.photoUrl || "/assets/default-avatar.svg"}
                                                     alt={user.name || user.username}
                                                     sx={{ width: 40, height: 40 }}
                                                 />
@@ -727,7 +727,7 @@ export default function AdminDashboard() {
                                         <TableCell sx={{ display: { xs: 'none', sm: 'table-cell' } }}>
                                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                 <Avatar
-                                                    src={complaint.user.photoUrl || "/assets/egg.jpg"}
+                                                    src={complaint.user.photoUrl || "/assets/default-avatar.svg"}
                                                     alt={complaint.user.name || complaint.user.username}
                                                     sx={{ width: 32, height: 32 }}
                                                 />

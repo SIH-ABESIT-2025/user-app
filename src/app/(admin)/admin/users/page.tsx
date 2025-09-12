@@ -316,7 +316,7 @@ export default function AdminUsers() {
                                             <TableCell>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                                     <Avatar
-                                                        src={user.photoUrl || "/assets/egg.jpg"}
+                                                        src={user.photoUrl || "/assets/default-avatar.svg"}
                                                         alt={user.name || user.username}
                                                         sx={{ width: 48, height: 48 }}
                                                     />
@@ -457,7 +457,7 @@ export default function AdminUsers() {
                         <Box sx={{ mt: 2 }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
                                 <Avatar
-                                    src={selectedUser.photoUrl || "/assets/egg.jpg"}
+                                    src={selectedUser.photoUrl || "/assets/default-avatar.svg"}
                                     alt={selectedUser.name || selectedUser.username}
                                     sx={{ width: 64, height: 64 }}
                                 />

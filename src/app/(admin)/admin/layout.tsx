@@ -176,7 +176,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                                     color="inherit"
                                 >
                                     <Avatar
-                                        src={auth.token?.photoUrl ? getFullURL(auth.token.photoUrl) : "/assets/egg.jpg"}
+                                        src={auth.token?.photoUrl ? getFullURL(auth.token.photoUrl) : "/assets/default-avatar.svg"}
                                         alt={auth.token?.name || auth.token?.username}
                                         sx={{ width: 32, height: 32 }}
                                     />

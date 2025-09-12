@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Avatar, Menu, MenuItem, Popover, Tooltip } from "@mui/material";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { FaBuilding } from "react-icons/fa";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -73,7 +73,7 @@ export default function Conversation({ conversation, token, handleConversations 
                     className="avatar"
                     sx={{ width: 50, height: 50 }}
                     alt=""
-                    src={photoUrl ? getFullURL(photoUrl) : "/assets/egg.jpg"}
+                    src={photoUrl ? getFullURL(photoUrl) : "/assets/default-avatar.svg"}
                 />
             </Link>
             <div className="user-wrapper">
@@ -88,7 +88,7 @@ export default function Conversation({ conversation, token, handleConversations 
                             {name !== "" ? name : username}
                             {isPremium && (
                                 <span className="blue-tick" data-blue="Verified Blue">
-                                    <AiFillTwitterCircle />
+                                    <FaBuilding />
                                 </span>
                             )}
                         </span>

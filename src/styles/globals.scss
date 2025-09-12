@@ -295,12 +295,12 @@ main {
         left: 1rem;
         top: 0.75rem;
         z-index: 9999;
-        color: var(--twitter-white);
-        background-color: var(--twitter-light-black);
+        color: var(--gov-white);
+        background-color: var(--gov-light-black);
         transition: all 0.2s ease-in-out;
 
         &:hover {
-            color: var(--twitter-black);
+            color: var(--gov-black);
             background-color: var(--hover);
         }
     }
@@ -547,7 +547,7 @@ main {
     .reminder {
         border: 1px solid var(--border-color);
         border-radius: 1rem;
-        background-color: var(--twitter-white);
+        background-color: var(--gov-white);
         padding: 1rem;
         display: flex;
         flex-direction: column;
@@ -579,7 +579,7 @@ main {
     .complete-reminder {
         border: 1px solid var(--border-color);
         border-radius: 1rem;
-        background-color: var(--twitter-white);
+        background-color: var(--gov-white);
         padding: 1rem;
         display: flex;
         flex-direction: column;
@@ -613,7 +613,7 @@ main {
 
     .legal {
         font-size: 0.8rem;
-        color: var(--twitter-muted);
+        color: var(--gov-muted);
 
         .legal-links {
             margin-inline: 1rem;
@@ -638,11 +638,11 @@ main {
             transition: color 0.2s ease-in-out;
 
             a:hover {
-                color: var(--twitter-blue);
+                color: var(--gov-blue);
             }
 
             .github {
-                color: var(--twitter-black);
+                color: var(--gov-black);
                 transition: transform 0.5s ease-in-out;
                 font-size: 2rem;
 
@@ -659,7 +659,7 @@ main {
     align-items: center;
     gap: 1rem;
     font-size: 1.25rem;
-    color: var(--twitter-blue);
+    color: var(--gov-blue);
     padding-top: 1rem;
     border-top: 1px solid var(--border-color);
 
@@ -910,7 +910,7 @@ main {
                 background-color: inherit;
                 display: flex;
                 justify-content: center;
-                color: var(--twitter-muted);
+                color: var(--gov-muted);
                 opacity: 0.75;
                 align-items: center;
 
@@ -1070,7 +1070,7 @@ main {
         left: 3.1rem;
         font-size: 0.75rem;
         font-weight: 700;
-        color: var(--twitter-muted);
+        color: var(--gov-muted);
         display: flex;
         align-items: center;
         gap: 1rem;
@@ -1177,7 +1177,7 @@ main {
             flex: 1;
             padding: 1rem 2rem 0.25rem;
             transition: background-color 0.2s ease-in-out;
-            color: var(--twitter-muted);
+            color: var(--gov-muted);
             font-weight: 500;
 
             &:hover {
@@ -1187,10 +1187,10 @@ main {
 
         .active {
             span {
-                color: var(--twitter-black);
+                color: var(--gov-black);
                 font-weight: 700;
                 padding: 0 0.25rem 0.75rem;
-                border-bottom: 3px solid var(--twitter-blue);
+                border-bottom: 3px solid var(--gov-blue);
             }
         }
     }
@@ -1205,7 +1205,7 @@ main {
                 position: absolute;
                 bottom: -70px;
                 left: 1.5rem;
-                border: 4px solid var(--twitter-white);
+                border: 4px solid var(--gov-white);
                 border-radius: 5rem;
             }
 
@@ -1230,7 +1230,7 @@ main {
                 font-size: 0.93rem;
 
                 .new-message {
-                    border: 1px solid var(--twitter-light-gray);
+                    border: 1px solid var(--gov-light-gray);
                 }
             }
 
@@ -1247,8 +1247,8 @@ main {
                 .is-following {
                     font-size: 0.7rem;
                     font-weight: 500;
-                    background-color: var(--twitter-white);
-                    color: var(--twitter-black);
+                    background-color: var(--gov-white);
+                    color: var(--gov-black);
                     padding: 0.1rem 0.25rem;
                     border-radius: 0.5rem;
                 }
@@ -1319,8 +1319,8 @@ main {
         .is-following {
             font-size: 0.66rem;
             font-weight: 500;
-            background-color: var(--twitter-white);
-            color: var(--twitter-black);
+            background-color: var(--gov-white);
+            color: var(--gov-black);
             padding-inline: 0.25rem;
             border-radius: 0.5rem;
         }
@@ -1358,7 +1358,7 @@ main {
             position: absolute;
             bottom: -70px;
             left: 1.5rem;
-            border: 4px solid var(--twitter-white);
+            border: 4px solid var(--gov-white);
             border-radius: 5rem;
         }
 
@@ -1426,7 +1426,7 @@ main {
         transition: color 0.2s ease-in-out;
 
         &:hover {
-            color: var(--twitter-light-gray);
+            color: var(--gov-light-gray);
         }
     }
 
@@ -1667,14 +1667,14 @@ button.icon-hoverable {
     position: absolute;
     top: 1.5rem;
     font-weight: 300;
-    color: var(--twitter-muted);
+    color: var(--gov-muted);
     font-size: 0.9rem;
     letter-spacing: 0.5px;
 }
 
 .mention {
     font-weight: 400;
-    color: var(--twitter-dark-blue);
+    color: var(--gov-dark-blue);
 
     &:hover {
         text-decoration: underline;
@@ -1696,7 +1696,7 @@ button.icon-hoverable {
     dialog {
         border: 1px solid var(--border-color);
         background-color: var(--background-primary);
-        color: var(--twitter-black);
+                color: var(--gov-black);
         border-radius: 1rem;
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     }
@@ -1714,7 +1714,7 @@ button.icon-hoverable {
 
         p {
             font-size: small;
-            color: var(--twitter-muted);
+            color: var(--gov-muted);
             font-weight: 400;
         }
     }
@@ -1737,10 +1737,10 @@ button.icon-hoverable {
             font-weight: 400;
 
             a {
-                color: var(--twitter-blue);
+                color: var(--gov-blue);
 
                 &:hover {
-                    color: var(--twitter-dark-blue);
+                    color: var(--gov-dark-blue);
                     text-decoration: underline;
                 }
             }
@@ -1754,18 +1754,18 @@ button.icon-hoverable {
         }
 
         .blue-input {
-            border: 1px solid var(--twitter-light-gray);
+            border: 1px solid var(--gov-light-gray);
             border-radius: 5rem;
-            background-color: var(--twitter-white);
+            background-color: var(--gov-white);
             padding: 0.5rem 1rem;
             font-size: 1rem;
             font-weight: 400;
             line-height: 1.5;
-            color: var(--twitter-black);
+            color: var(--gov-black);
 
             &:focus {
                 outline: none;
-                box-shadow: 0 0 0 2px var(--twitter-blue);
+                box-shadow: 0 0 0 2px var(--gov-blue);
             }
 
             &::placeholder {
@@ -1774,7 +1774,7 @@ button.icon-hoverable {
         }
 
         svg {
-            color: var(--twitter-blue);
+            color: var(--gov-blue);
         }
 
         .blue-user {
@@ -1801,16 +1801,16 @@ button.icon-hoverable {
         border: none;
         background: inherit;
         cursor: pointer;
-        color: var(--twitter-black);
+                color: var(--gov-black);
 
         &:hover {
-            color: var(--twitter-blue);
+            color: var(--gov-blue);
             text-decoration: underline;
         }
     }
 
     svg {
-        color: var(--twitter-blue);
+        color: var(--gov-blue);
         font-size: 1.2rem;
         transition: all 0.5s ease-in-out;
 
@@ -1822,7 +1822,7 @@ button.icon-hoverable {
 
 .blue-tick {
     vertical-align: top;
-    color: var(--twitter-blue);
+    color: var(--gov-blue);
     margin-left: 2px;
     display: inline-flex;
     position: relative;
@@ -1834,7 +1834,7 @@ button.icon-hoverable {
         left: 50%;
         transform: translateX(-50%);
         padding: 4px 8px;
-        background-color: var(--twitter-blue);
+        background-color: var(--gov-blue);
         color: var(--const-white);
         font-size: 0.75rem;
         white-space: nowrap;
@@ -1884,7 +1884,7 @@ button.icon-hoverable {
             position: absolute;
             right: 1rem;
             top: 1.5rem;
-            border: 1px solid var(--twitter-light-gray);
+            border: 1px solid var(--gov-light-gray);
         }
     }
 
@@ -1905,7 +1905,7 @@ button.icon-hoverable {
                 .btn {
                     width: auto;
                     border: none;
-                    color: var(--twitter-blue);
+                    color: var(--gov-blue);
                     display: inline-flex;
                     transform: translate(10px, 5px);
                 }
@@ -1974,7 +1974,7 @@ button.icon-hoverable {
 
                     .message-text {
                         border-bottom-right-radius: 0;
-                        background-color: var(--twitter-blue);
+                        background-color: var(--gov-blue);
                         color: var(--const-white);
                         margin-left: auto;
                     }
@@ -2068,7 +2068,7 @@ button.icon-hoverable {
         transition: background-color 0.2s ease-in-out;
         height: 65px;
         border-bottom: 1px solid var(--border-color);
-        color: var(--twitter-muted);
+        color: var(--gov-muted);
         display: grid;
         grid-template-columns: 50px 1fr;
         align-items: center;
@@ -2082,28 +2082,28 @@ button.icon-hoverable {
             font-size: 1.5rem;
 
             &.welcome {
-                color: var(--twitter-orange);
+                color: var(--gov-orange);
             }
             &.message {
-                color: var(--twitter-purple);
+                color: var(--gov-purple);
             }
             &.like {
-                color: var(--twitter-red);
+                color: var(--gov-red);
             }
             &.retweet {
-                color: var(--twitter-retweet);
+                color: var(--gov-retweet);
                 scale: 1.75;
             }
             &.reply {
-                color: var(--twitter-dark-blue);
+                color: var(--gov-dark-blue);
             }
             &.follow {
-                color: var(--twitter-pink);
+                color: var(--gov-pink);
             }
         }
 
         .notification-link {
-            color: var(--twitter-blue);
+            color: var(--gov-blue);
 
             &:hover {
                 text-decoration: underline;
@@ -2127,7 +2127,7 @@ button.icon-hoverable {
                 gap: 0.33rem;
 
                 h1 {
-                    color: var(--twitter-black);
+                    color: var(--gov-black);
                     font-weight: 500;
                 }
             }
@@ -2148,7 +2148,7 @@ button.icon-hoverable {
         left: 10px;
         transform: translateX(-50%);
         padding: 4px;
-        background-color: var(--twitter-blue);
+        background-color: var(--gov-blue);
         border-radius: 5rem;
         min-width: 10px;
         aspect-ratio: 1;
@@ -2168,7 +2168,7 @@ button.icon-hoverable {
         display: inline;
         vertical-align: middle;
         font-size: 0.7rem;
-        color: var(--twitter-muted);
+        color: var(--gov-muted);
     }
 }
 

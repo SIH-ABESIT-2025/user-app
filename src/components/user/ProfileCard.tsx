@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { FaBuilding } from "react-icons/fa";
 
 import { getUser } from "@/utilities/fetch";
 import { getFullURL } from "@/utilities/misc/getFullURL";
@@ -28,7 +28,7 @@ export default function ProfileCard({ username, token }: { username: string; tok
                 <Avatar
                     sx={{ width: 75, height: 75 }}
                     alt=""
-                    src={data.user.photoUrl ? getFullURL(data.user.photoUrl) : "/assets/egg.jpg"}
+                    src={data.user.photoUrl ? getFullURL(data.user.photoUrl) : "/assets/default-avatar.svg"}
                 />
             </div>
             <div className="profile-info-main">
@@ -36,7 +36,7 @@ export default function ProfileCard({ username, token }: { username: string; tok
                     {data.user.name !== "" ? data.user.name : data.user.username}
                     {data.user.isPremium && (
                         <span className="blue-tick" data-blue="Verified Blue">
-                            <AiFillTwitterCircle />
+                            <FaBuilding />
                         </span>
                     )}
                 </h1>

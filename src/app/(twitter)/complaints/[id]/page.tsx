@@ -101,7 +101,7 @@ export default function ComplaintDetailsPage() {
   };
 
   const getAvatarUrl = (photoUrl?: string) => {
-    if (!photoUrl) return "/assets/egg.jpg";
+    if (!photoUrl) return "/assets/default-avatar.svg";
     return getFileUrl(photoUrl);
   };
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RxDotsHorizontal } from "react-icons/rx";
 import { Avatar, Menu, MenuItem } from "@mui/material";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { FaBuilding } from "react-icons/fa";
 
 import { TweetProps } from "@/types/TweetProps";
 import { formatDateExtended } from "@/utilities/date";
@@ -98,7 +98,7 @@ export default function SingleTweet({ tweet, token }: { tweet: TweetProps; token
                                 className="avatar"
                                 sx={{ width: 50, height: 50 }}
                                 alt=""
-                                src={tweet.author.photoUrl ? getFullURL(tweet.author.photoUrl) : "/assets/egg.jpg"}
+                                src={tweet.author.photoUrl ? getFullURL(tweet.author.photoUrl) : "/assets/default-avatar.svg"}
                             />
                         </Link>
                     </div>
@@ -108,7 +108,7 @@ export default function SingleTweet({ tweet, token }: { tweet: TweetProps; token
                                 {tweet.author.name !== "" ? tweet.author.name : tweet.author.username}
                                 {tweet.author.isPremium && (
                                     <span className="blue-tick" data-blue="Verified Blue">
-                                        <AiFillTwitterCircle />
+                                        <FaBuilding />
                                     </span>
                                 )}
                             </span>
@@ -180,7 +180,7 @@ export default function SingleTweet({ tweet, token }: { tweet: TweetProps; token
                         <h1>Delete Tweet?</h1>
                         <p>
                             This can’t be undone and it will be removed from your profile, the timeline of any accounts that
-                            follow you, and from Twitter search results.
+                            follow you, and from Jharkhand Civic search results.
                         </p>
                         {isDeleting ? (
                             <CircularLoading />

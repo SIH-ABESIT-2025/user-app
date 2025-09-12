@@ -79,7 +79,7 @@ export default function NewTweet({ token, handleSubmit }: NewTweetProps) {
                 className="avatar div-link"
                 sx={{ width: 50, height: 50 }}
                 alt=""
-                src={token.photoUrl ? getFullURL(token.photoUrl) : "/assets/egg.jpg"}
+                src={token.photoUrl ? getFullURL(token.photoUrl) : "/assets/default-avatar.svg"}
             />
             <form onSubmit={formik.handleSubmit}>
                 <div className="input">

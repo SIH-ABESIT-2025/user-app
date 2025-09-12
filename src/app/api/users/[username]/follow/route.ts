@@ -46,7 +46,7 @@ export async function POST(request: NextRequest, { params: { username } }: { par
             sender: {
                 username: verifiedToken.username,
                 name: verifiedToken.name || verifiedToken.username,
-                photoUrl: verifiedToken.photoUrl || "/assets/egg.jpg",
+                photoUrl: verifiedToken.photoUrl || "/assets/default-avatar.svg",
             },
             content: null,
         };

@@ -62,7 +62,7 @@ export default function ComplaintCard({ complaint, showActions = false, onStatus
     };
 
     const getAvatarUrl = (photoUrl?: string) => {
-        if (!photoUrl) return "/assets/egg.jpg";
+        if (!photoUrl) return "/assets/default-avatar.svg";
         return getFileUrl(photoUrl);
     };
 

@@ -198,7 +198,7 @@ export default function AdminMessages() {
                                             <TableCell>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                     <Avatar
-                                                        src={message.sender.photoUrl || "/assets/egg.jpg"}
+                                                        src={message.sender.photoUrl || "/assets/default-avatar.svg"}
                                                         alt={message.sender.name || message.sender.username}
                                                         sx={{ width: 32, height: 32 }}
                                                     />
@@ -215,7 +215,7 @@ export default function AdminMessages() {
                                             <TableCell>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                     <Avatar
-                                                        src={message.recipient.photoUrl || "/assets/egg.jpg"}
+                                                        src={message.recipient.photoUrl || "/assets/default-avatar.svg"}
                                                         alt={message.recipient.name || message.recipient.username}
                                                         sx={{ width: 32, height: 32 }}
                                                     />
@@ -323,7 +323,7 @@ export default function AdminMessages() {
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                         <Avatar
-                                            src={selectedMessage.sender.photoUrl || "/assets/egg.jpg"}
+                                            src={selectedMessage.sender.photoUrl || "/assets/default-avatar.svg"}
                                             alt={selectedMessage.sender.name || selectedMessage.sender.username}
                                             sx={{ width: 48, height: 48 }}
                                         />
@@ -340,7 +340,7 @@ export default function AdminMessages() {
                                 <Grid item xs={12} md={6}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                                         <Avatar
-                                            src={selectedMessage.recipient.photoUrl || "/assets/egg.jpg"}
+                                            src={selectedMessage.recipient.photoUrl || "/assets/default-avatar.svg"}
                                             alt={selectedMessage.recipient.name || selectedMessage.recipient.username}
                                             sx={{ width: 48, height: 48 }}
                                         />

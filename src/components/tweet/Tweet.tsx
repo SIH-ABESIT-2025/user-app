@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { FaBuilding } from "react-icons/fa";
 
 import { TweetProps } from "@/types/TweetProps";
 import { formatDate, formatDateExtended } from "@/utilities/date";
@@ -84,7 +84,7 @@ export default function Tweet({ tweet }: { tweet: TweetProps }) {
                     className="avatar"
                     sx={{ width: 50, height: 50 }}
                     alt=""
-                    src={displayedTweet.author.photoUrl ? getFullURL(displayedTweet.author.photoUrl) : "/assets/egg.jpg"}
+                    src={displayedTweet.author.photoUrl ? getFullURL(displayedTweet.author.photoUrl) : "/assets/default-avatar.svg"}
                 />
             </Link>
             <div className="tweet-main">
@@ -100,7 +100,7 @@ export default function Tweet({ tweet }: { tweet: TweetProps }) {
                             {displayedTweet.author.name !== "" ? displayedTweet.author.name : displayedTweet.author.username}
                             {displayedTweet.author.isPremium && (
                                 <span className="blue-tick" data-blue="Verified Blue">
-                                    <AiFillTwitterCircle />
+                                    <FaBuilding />
                                 </span>
                             )}
                         </span>

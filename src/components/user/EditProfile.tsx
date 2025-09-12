@@ -95,7 +95,7 @@ export default function EditProfile({ profile, refreshToken }: { profile: UserPr
                             }}
                             alt="Profile Picture"
                             src={
-                                photoPreview ? photoPreview : profile.photoUrl ? getFullURL(profile.photoUrl) : "/assets/egg.jpg"
+                                photoPreview ? photoPreview : profile.photoUrl ? getFullURL(profile.photoUrl) : "/assets/default-avatar.svg"
                             }
                         />
                         <button 

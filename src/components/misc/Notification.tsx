@@ -61,7 +61,7 @@ export default function Notification({ notification, token }: { notification: No
                 <Avatar
                     sx={{ width: 33, height: 33 }}
                     alt=""
-                    src={content?.sender.photoUrl ? getFullURL(content?.sender.photoUrl) : "/assets/egg.jpg"}
+                    src={content?.sender.photoUrl ? getFullURL(content?.sender.photoUrl) : "/assets/default-avatar.svg"}
                 />
                 <div className="profile-info-main">
                     <h1>
@@ -151,7 +151,7 @@ export default function Notification({ notification, token }: { notification: No
                     <GiPartyPopper />
                 </div>
                 <div className={!notification.isRead ? "bold" : ""}>
-                    Welcome to the Twitter! <br />
+                    Welcome to Jharkhand Civic! <br />
                     Start exploring and sharing your thoughts with the world.
                 </div>
             </div>

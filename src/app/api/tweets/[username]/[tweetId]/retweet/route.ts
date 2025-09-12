@@ -66,7 +66,7 @@ export async function POST(
                 sender: {
                     username: verifiedToken.username,
                     name: verifiedToken.name || verifiedToken.username,
-                    photoUrl: verifiedToken.photoUrl || "/assets/egg.jpg",
+                    photoUrl: verifiedToken.photoUrl || "/assets/default-avatar.svg",
                 },
                 content: {
                     id: tweetId,

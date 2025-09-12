@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { Avatar } from "@mui/material";
 import Link from "next/link";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { FaBuilding } from "react-icons/fa";
 
 import { UserProps } from "@/types/UserProps";
 import { AuthContext } from "@/contexts/AuthContext";
@@ -25,7 +25,7 @@ export default function User({ user }: { user: UserProps }) {
                     className="avatar"
                     sx={{ width: 50, height: 50 }}
                     alt=""
-                    src={user.photoUrl ? getFullURL(user.photoUrl) : "/assets/egg.jpg"}
+                    src={user.photoUrl ? getFullURL(user.photoUrl) : "/assets/default-avatar.svg"}
                 />
             </Link>
             <div onClick={handleProfileClick} className="user">
@@ -36,7 +36,7 @@ export default function User({ user }: { user: UserProps }) {
                                 {user.name !== "" ? user.name : user.username}
                                 {user.isPremium && (
                                     <span className="blue-tick" data-blue="Verified Blue">
-                                        <AiFillTwitterCircle />
+                                        <FaBuilding />
                                     </span>
                                 )}
                             </span>

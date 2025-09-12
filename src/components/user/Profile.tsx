@@ -30,7 +30,7 @@ export default function Profile({ profile }: { profile: UserProps }) {
     const clickedElement = e.target;
     if (clickedElement.alt === "profile-photo") {
       handlePreviewClick(
-        profile.photoUrl ? profile.photoUrl : "/assets/egg.jpg"
+        profile.photoUrl ? profile.photoUrl : "/assets/default-avatar.svg"
       );
     }
   };
@@ -82,7 +82,7 @@ export default function Profile({ profile }: { profile: UserProps }) {
               src={
                 profile.photoUrl
                   ? getFullURL(profile.photoUrl)
-                  : "/assets/egg.jpg"
+                  : "/assets/default-avatar.svg"
               }
             />
             <div className="profile-actions" style={{ marginTop: "2rem" }}>

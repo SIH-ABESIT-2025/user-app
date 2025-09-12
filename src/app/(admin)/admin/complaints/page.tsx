@@ -304,7 +304,7 @@ export default function AdminComplaints() {
                                             <TableCell>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                                                     <Avatar
-                                                        src={complaint.user.photoUrl || "/assets/egg.jpg"}
+                                                        src={complaint.user.photoUrl || "/assets/default-avatar.svg"}
                                                         alt={complaint.user.name || complaint.user.username}
                                                         sx={{ width: 32, height: 32 }}
                                                     />

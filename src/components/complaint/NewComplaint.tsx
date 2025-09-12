@@ -237,7 +237,7 @@ export default function NewComplaint({ token, handleSubmit }: NewComplaintProps)
                     className="avatar div-link"
                     sx={{ width: 50, height: 50 }}
                     alt=""
-                    src={token.photoUrl ? getFullURL(token.photoUrl) : "/assets/egg.jpg"}
+                    src={token.photoUrl ? getFullURL(token.photoUrl) : "/assets/default-avatar.svg"}
                 />
                 <div className="complaint-title">
                     <h2>Report a Civic Issue</h2>

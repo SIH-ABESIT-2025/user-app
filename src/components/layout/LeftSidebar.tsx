@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Avatar, Menu, MenuItem } from "@mui/material";
 import { FaHome, FaBell, FaUser, FaCog, FaEllipsisH, FaExclamationTriangle, FaClipboardList, FaMap, FaUserShield } from "react-icons/fa";
-import { AiFillTwitterCircle } from "react-icons/ai";
+import { FaBuilding } from "react-icons/fa";
 
 import NewComplaintDialog from "../dialog/NewComplaintDialog";
 import LogOutDialog from "../dialog/LogOutDialog";
@@ -116,7 +116,7 @@ export default function LeftSidebar() {
                                     <Avatar
                                         className="avatar"
                                         alt=""
-                                        src={token.photoUrl ? getFullURL(token.photoUrl) : "/assets/egg.jpg"}
+                                        src={token.photoUrl ? getFullURL(token.photoUrl) : "/assets/default-avatar.svg"}
                                     />
                                 </div>
                                 <div>
@@ -124,7 +124,7 @@ export default function LeftSidebar() {
                                         {token.name !== "" ? token.name : token.username}
                                         {token.isPremium && (
                                             <span className="blue-tick" data-blue="Verified Blue">
-                                                <AiFillTwitterCircle />
+                                                <FaBuilding />
                                             </span>
                                         )}
                                     </div>
