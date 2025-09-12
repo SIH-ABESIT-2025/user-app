@@ -31,14 +31,10 @@ export const middleware = async (request: NextRequest) => {
         return NextResponse.redirect(new URL("/", url));
     }
 
-    // Admin route protection (exclude admin-login to prevent redirect loop)
-    if (adminRoutes.some((route) => nextUrl.pathname.startsWith(route)) && nextUrl.pathname !== "/admin-login") {
-        if (!hasVerifiedToken) {
-            return NextResponse.redirect(new URL("/admin-login", url));
-        }
-        if (hasVerifiedToken.role !== "ADMIN" && hasVerifiedToken.role !== "SUPER_ADMIN") {
-            return NextResponse.redirect(new URL("/admin-login", url));
-        }
+    // Admin routes are now accessible without authentication
+    // Redirect admin-login to admin dashboard since auth is disabled
+    if (nextUrl.pathname === "/admin-login") {
+        return NextResponse.redirect(new URL("/admin", url));
     }
 
     // Allow both authenticated and unauthenticated users to access home page

@@ -6,13 +6,13 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
     try {
-        // Verify admin access
-        const token = request.cookies.get("token")?.value;
-        const verifiedToken = token && (await verifyJwtToken(token));
+        // Admin authentication removed - API is now accessible without login
+        // const token = request.cookies.get("token")?.value;
+        // const verifiedToken = token && (await verifyJwtToken(token));
         
-        if (!verifiedToken || (verifiedToken.role !== "ADMIN" && verifiedToken.role !== "SUPER_ADMIN")) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+        // if (!verifiedToken || (verifiedToken.role !== "ADMIN" && verifiedToken.role !== "SUPER_ADMIN")) {
+        //     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        // }
 
         const { searchParams } = new URL(request.url);
         const page = parseInt(searchParams.get("page") || "1");

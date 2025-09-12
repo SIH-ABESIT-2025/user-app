@@ -8,7 +8,15 @@ const createPrismaClient = () => {
         console.warn('DATABASE_URL is not set. Prisma client will not be initialized.');
         return null;
     }
-    return new PrismaClient();
+    
+    return new PrismaClient({
+        log: process.env.NODE_ENV === "development" ? ["query", "error", "warn"] : ["error"],
+        datasources: {
+            db: {
+                url: process.env.DATABASE_URL,
+            },
+        },
+    });
 };
 
 export const prisma = globalForPrisma.prisma || createPrismaClient();

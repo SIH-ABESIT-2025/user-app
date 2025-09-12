@@ -50,12 +50,11 @@ export default function AdminLoginPage() {
     const auth = useAuth();
     const router = useRouter();
 
-    // Redirect if already logged in as admin
+    // Admin authentication removed - redirect to admin dashboard
     useEffect(() => {
-        if (auth.token && (auth.token.role === 'ADMIN' || auth.token.role === 'SUPER_ADMIN')) {
-            router.replace('/admin');
-        }
-    }, [auth.token, router]);
+        // Always redirect to admin dashboard since auth is disabled
+        router.replace('/admin');
+    }, [router]);
 
     const formik = useFormik({
         initialValues: {

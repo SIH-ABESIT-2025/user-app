@@ -69,15 +69,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         setMobileOpen(false);
     };
 
-    // Check if user has admin privileges
-    if (auth.isPending) {
-        return <GlobalLoading />;
-    }
+    // Admin authentication removed - dashboard is now accessible without login
+    // if (auth.isPending) {
+    //     return <GlobalLoading />;
+    // }
 
-    if (!auth.token || (auth.token.role !== "ADMIN" && auth.token.role !== "SUPER_ADMIN")) {
-        router.replace("/admin-login");
-        return <GlobalLoading />;
-    }
+    // if (!auth.token || (auth.token.role !== "ADMIN" && auth.token.role !== "SUPER_ADMIN")) {
+    //     router.replace("/admin-login");
+    //     return <GlobalLoading />;
+    // }
 
     const drawer = (
         <Box>

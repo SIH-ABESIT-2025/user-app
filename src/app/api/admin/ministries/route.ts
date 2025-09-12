@@ -6,13 +6,7 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(request: NextRequest) {
     try {
-        // Verify admin access
-        const token = request.cookies.get("token")?.value;
-        const verifiedToken = token && (await verifyJwtToken(token));
-        
-        if (!verifiedToken || (verifiedToken.role !== "ADMIN" && verifiedToken.role !== "SUPER_ADMIN")) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+        // Admin authentication removed - API is now accessible without login
 
         const { searchParams } = new URL(request.url);
         const search = searchParams.get("search");
@@ -49,13 +43,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
     try {
-        // Verify admin access
-        const token = request.cookies.get("token")?.value;
-        const verifiedToken = token && (await verifyJwtToken(token));
-        
-        if (!verifiedToken || (verifiedToken.role !== "ADMIN" && verifiedToken.role !== "SUPER_ADMIN")) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+        // Admin authentication removed - API is now accessible without login
 
         const { name, description, icon, color, isActive } = await request.json();
 

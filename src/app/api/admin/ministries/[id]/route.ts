@@ -9,13 +9,7 @@ export async function PUT(
     { params }: { params: { id: string } }
 ) {
     try {
-        // Verify admin access
-        const token = request.cookies.get("token")?.value;
-        const verifiedToken = token && (await verifyJwtToken(token));
-        
-        if (!verifiedToken || (verifiedToken.role !== "ADMIN" && verifiedToken.role !== "SUPER_ADMIN")) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+        // Admin authentication removed - API is now accessible without login
 
         const { id } = params;
         const { name, description, icon, color, isActive } = await request.json();
@@ -50,13 +44,7 @@ export async function DELETE(
     { params }: { params: { id: string } }
 ) {
     try {
-        // Verify admin access
-        const token = request.cookies.get("token")?.value;
-        const verifiedToken = token && (await verifyJwtToken(token));
-        
-        if (!verifiedToken || (verifiedToken.role !== "ADMIN" && verifiedToken.role !== "SUPER_ADMIN")) {
-            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-        }
+        // Admin authentication removed - API is now accessible without login
 
         const { id } = params;
 
