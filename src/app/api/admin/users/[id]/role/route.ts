@@ -20,10 +20,10 @@ export async function PATCH(
             return NextResponse.json({ error: "Invalid role" }, { status: 400 });
         }
 
-        // Only SUPER_ADMIN can assign ADMIN and SUPER_ADMIN roles
-        if ((role === "ADMIN" || role === "SUPER_ADMIN") && verifiedToken.role !== "SUPER_ADMIN") {
-            return NextResponse.json({ error: "Insufficient permissions" }, { status: 403 });
-        }
+        // Role assignment validation removed since admin authentication is disabled
+        // if ((role === "ADMIN" || role === "SUPER_ADMIN") && verifiedToken.role !== "SUPER_ADMIN") {
+        //     return NextResponse.json({ error: "Insufficient permissions" }, { status: 403 });
+        // }
 
         const updatedUser = await prisma.user.update({
             where: { id },

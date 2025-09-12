@@ -34,15 +34,15 @@ export async function PATCH(
             },
         });
 
-        // Create status update record
-        await prisma.complaintUpdate.create({
-            data: {
-                complaintId: id,
-                status,
-                message: message || `Status updated to ${status.replace('_', ' ')}`,
-                updatedById: verifiedToken.id,
-            },
-        });
+        // Status update record creation removed since admin authentication is disabled
+        // await prisma.complaintUpdate.create({
+        //     data: {
+        //         complaintId: id,
+        //         status,
+        //         message: message || `Status updated to ${status.replace('_', ' ')}`,
+        //         updatedById: verifiedToken.id,
+        //     },
+        // });
 
         return NextResponse.json(updatedComplaint);
     } catch (error) {

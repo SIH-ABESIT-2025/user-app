@@ -13,10 +13,10 @@ export async function DELETE(
 
         const { id } = params;
 
-        // Prevent deleting own account
-        if (id === verifiedToken.id) {
-            return NextResponse.json({ error: "Cannot delete your own account" }, { status: 400 });
-        }
+        // Self-deletion check removed since admin authentication is disabled
+        // if (id === verifiedToken.id) {
+        //     return NextResponse.json({ error: "Cannot delete your own account" }, { status: 400 });
+        // }
 
         // Check if user exists and get their role
         const user = await prisma.user.findUnique({
@@ -28,10 +28,10 @@ export async function DELETE(
             return NextResponse.json({ error: "User not found" }, { status: 404 });
         }
 
-        // Only SUPER_ADMIN can delete ADMIN and SUPER_ADMIN users
-        if ((user.role === "ADMIN" || user.role === "SUPER_ADMIN") && verifiedToken.role !== "SUPER_ADMIN") {
-            return NextResponse.json({ error: "Insufficient permissions to delete this user" }, { status: 403 });
-        }
+        // Permission check removed since admin authentication is disabled
+        // if ((user.role === "ADMIN" || user.role === "SUPER_ADMIN") && verifiedToken.role !== "SUPER_ADMIN") {
+        //     return NextResponse.json({ error: "Insufficient permissions to delete this user" }, { status: 403 });
+        // }
 
         // Delete user and all related data
         await prisma.user.delete({

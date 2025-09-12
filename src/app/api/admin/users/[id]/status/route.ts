@@ -14,10 +14,10 @@ export async function PATCH(
         const { id } = params;
         const { isActive } = await request.json();
 
-        // Prevent deactivating own account
-        if (id === verifiedToken.id && !isActive) {
-            return NextResponse.json({ error: "Cannot deactivate your own account" }, { status: 400 });
-        }
+        // Self-deactivation check removed since admin authentication is disabled
+        // if (id === verifiedToken.id && !isActive) {
+        //     return NextResponse.json({ error: "Cannot deactivate your own account" }, { status: 400 });
+        // }
 
         const updatedUser = await prisma.user.update({
             where: { id },
