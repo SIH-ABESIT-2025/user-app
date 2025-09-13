@@ -42,12 +42,6 @@ export default function ComplaintDetailsPage() {
 
   useEffect(() => {
     const fetchComplaint = async () => {
-      if (!params?.id) {
-        setError("Invalid complaint ID");
-        setLoading(false);
-        return;
-      }
-      
       try {
         const data = await getComplaint(params.id as string);
         setComplaint(data);
@@ -60,10 +54,10 @@ export default function ComplaintDetailsPage() {
       }
     };
 
-    if (params?.id) {
+    if (params.id) {
       fetchComplaint();
     }
-  }, [params?.id]);
+  }, [params.id]);
 
   const getStatusColor = (status: string) => {
     switch (status) {

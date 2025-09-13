@@ -4,13 +4,6 @@ const nextConfig = {
     images: {
         domains: ["upload.wikimedia.org","media.assettype.com"],
     },
-    experimental: {
-        esmExternals: false,
-    },
-    trailingSlash: true,
-    generateBuildId: async () => {
-        return 'build-' + Date.now()
-    },
     async headers() {
         return [
             {
