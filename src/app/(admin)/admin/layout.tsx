@@ -17,12 +17,12 @@ import {
     FaMapMarkedAlt,
     FaComments
 } from "react-icons/fa";
-import { ThemeProvider } from "@/contexts/ThemeContext";
-import { AuthContext } from "@/contexts/AuthContext";
-import useAuth from "@/hooks/useAuth";
-import GlobalLoading from "@/components/misc/GlobalLoading";
-import { logout } from "@/utilities/fetch";
-import { getFullURL } from "@/utilities/misc/getFullURL";
+import { ThemeProvider } from "../../../contexts/ThemeContext";
+import { AuthContext } from "../../../contexts/AuthContext";
+import useAuth from "../../../hooks/useAuth";
+import GlobalLoading from "../../../components/misc/GlobalLoading";
+import { logout } from "../../../utilities/fetch";
+import { getFullURL } from "../../../utilities/misc/getFullURL";
 
 const drawerWidth = 280;
 const mobileDrawerWidth = 240;
