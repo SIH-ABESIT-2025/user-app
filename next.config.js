@@ -7,6 +7,10 @@ const nextConfig = {
     experimental: {
         esmExternals: false,
     },
+    trailingSlash: true,
+    generateBuildId: async () => {
+        return 'build-' + Date.now()
+    },
     async headers() {
         return [
             {

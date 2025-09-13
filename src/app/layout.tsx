@@ -5,6 +5,7 @@ import "../styles/globals.scss";
 import Providers from "./providers";
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export const metadata = {
     title: "Government of Jharkhand | Civic Issue Reporting",
