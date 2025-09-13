@@ -29,7 +29,7 @@
         "lint": "next lint",
         "postinstall": "npx prisma generate --schema=./src/prisma/schema.prisma || echo 'Prisma generate failed, continuing...'",
         "vercel-build": "npx prisma generate --schema=./src/prisma/schema.prisma && next build",
-        "netlify-build": "node scripts/generate-prisma.js && next build",
+        "netlify-build": "node scripts/generate-prisma.js && node scripts/setup-database.js && next build",
         "db:seed": "cd src && npx ts-node prisma/seed.ts",
         "db:seed-complaints": "cd src && npx ts-node scripts/seedDummyComplaints.ts",
         "db:push": "npx prisma db push --schema=./src/prisma/schema.prisma",

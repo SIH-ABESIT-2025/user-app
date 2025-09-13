@@ -4,6 +4,8 @@ import "../styles/reset.scss";
 import "../styles/globals.scss";
 import Providers from "./providers";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
     title: "Government of Jharkhand | Civic Issue Reporting",
     description: "Report civic issues and track their resolution with the Government of Jharkhand's official platform",
