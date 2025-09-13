@@ -33,7 +33,7 @@ import {
 } from "react-icons/fa";
 import { formatDistanceToNow } from "date-fns";
 import { ComplaintProps } from "@/types/ComplaintProps";
-import MapComponent from "@/components/map/MapComponent.tsx";
+import MapComponent from "@/components/map/MapComponent";
 
 interface MapComplaint extends ComplaintProps {
     latitude: number;

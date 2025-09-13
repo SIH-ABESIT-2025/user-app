@@ -16,5 +16,11 @@
     }
   },
   "regions": ["iad1"],
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "rewrites": [
+    {
+      "source": "/uploads/(.*)",
+      "destination": "/api/upload"
+    }
+  ]
 }
