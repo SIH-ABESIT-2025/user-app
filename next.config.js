@@ -4,6 +4,9 @@ const nextConfig = {
     images: {
         domains: ["upload.wikimedia.org","media.assettype.com"],
     },
+    experimental: {
+        esmExternals: false,
+    },
     async headers() {
         return [
             {
