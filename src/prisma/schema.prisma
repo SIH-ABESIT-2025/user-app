@@ -108,8 +108,8 @@ model Complaint {
     // Relations
     user            User              @relation("userComplaints", fields: [userId], references: [id])
     userId          String
-    ministry        Ministry?         @relation(fields: [ministryId], references: [id])
-    ministryId      String?
+    ministry        Ministry          @relation(fields: [ministryId], references: [id])
+    ministryId      String
     assignedTo      User?             @relation("assignedComplaints", fields: [assignedToId], references: [id])
     assignedToId    String?
     

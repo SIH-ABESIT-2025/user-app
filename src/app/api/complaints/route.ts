@@ -230,6 +230,39 @@ export async function POST(request: NextRequest) {
         console.log(`[${requestId}] [COMPLAINTS-POST] Database connected successfully`);
 
         console.log(`[${requestId}] [COMPLAINTS-POST] Creating complaint in database...`);
+        
+        // Handle ministryId - if empty, try to find or create a default ministry
+        let finalMinistryId = ministryId && ministryId.trim() !== '' ? ministryId : null;
+        
+        if (!finalMinistryId) {
+            console.log(`[${requestId}] [COMPLAINTS-POST] No ministry selected, looking for default ministry...`);
+            try {
+                // Try to find a default ministry or create one
+                let defaultMinistry = await prisma.ministry.findFirst({
+                    where: { name: { contains: 'General', mode: 'insensitive' } }
+                });
+                
+                if (!defaultMinistry) {
+                    // Create a default ministry for unassigned complaints
+                    defaultMinistry = await prisma.ministry.create({
+                        data: {
+                            name: 'General Administration',
+                            description: 'General complaints not assigned to specific ministries',
+                            icon: '🏛️',
+                            color: '#6B7280',
+                            isActive: true
+                        }
+                    });
+                    console.log(`[${requestId}] [COMPLAINTS-POST] Created default ministry:`, defaultMinistry.id);
+                }
+                
+                finalMinistryId = defaultMinistry.id;
+            } catch (ministryError) {
+                console.error(`[${requestId}] [COMPLAINTS-POST] Error handling default ministry:`, ministryError);
+                // If we can't create/find a default ministry, we'll let the error bubble up
+            }
+        }
+        
         const complaint = await prisma.complaint.create({
             data: {
                 title,
@@ -238,7 +271,7 @@ export async function POST(request: NextRequest) {
                 latitude,
                 longitude,
                 priority,
-                ministryId: ministryId && ministryId.trim() !== '' ? ministryId : null,
+                ministryId: finalMinistryId,
                 userId: verifiedToken.id,
                 complaintNumber,
                 attachments: {
