@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
     } catch (error) {
         console.error("Error creating ministry:", error);
         return NextResponse.json(
-            { error: "Failed to create ministry" },
+            { error: "Failed to create ministry" }, 
             { status: 500 }
         );
     }

@@ -77,14 +77,17 @@ export async function GET(request: NextRequest) {
         // Complaints by ministry
         const ministryCounts = await prisma.complaint.groupBy({
             by: ['ministryId'],
-            where: { createdAt: { gte: startDate } },
+            where: { 
+                createdAt: { gte: startDate },
+                ministryId: { not: null } // Only include complaints with ministry assigned
+            },
             _count: { ministryId: true }
         });
 
         const ministryData = await Promise.all(
             ministryCounts.map(async (item) => {
                 const ministry = await prisma.ministry.findUnique({
-                    where: { id: item.ministryId },
+                    where: { id: item.ministryId! }, // Use non-null assertion since we filtered out nulls
                     select: { name: true }
                 });
                 return {
