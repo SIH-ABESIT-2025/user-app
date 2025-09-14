@@ -22,6 +22,8 @@ frontend:
         - npm ci
         - echo "Installing sass for SCSS support..."
         - npm install sass --save
+        - echo "Installing TypeScript for build process..."
+        - npm install typescript --save
         - npx prisma generate --schema=./src/prisma/schema.prisma
         - '[ -n "$DATABASE_URL" ] && npx prisma db push --schema=./src/prisma/schema.prisma || echo "skip prisma db push"'
     build:
