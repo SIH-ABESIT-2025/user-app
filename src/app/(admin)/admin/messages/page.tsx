@@ -3,6 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import {
     Box,
     Typography,
@@ -370,10 +371,17 @@ export default function AdminMessages() {
                                     <Typography variant="h6" gutterBottom>
                                         Attachment
                                     </Typography>
-                                    <img 
+                                    <Image 
                                         src={selectedMessage.photoUrl} 
                                         alt="Message attachment"
-                                        style={{ maxWidth: '100%', height: 'auto', borderRadius: '8px' }}
+                                        width={300}
+                                        height={200}
+                                        style={{ 
+                                            objectFit: 'cover',
+                                            maxWidth: '100%', 
+                                            height: 'auto', 
+                                            borderRadius: '8px' 
+                                        }}
                                     />
                                 </Box>
                             )}

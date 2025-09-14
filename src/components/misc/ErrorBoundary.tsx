@@ -2,7 +2,7 @@
 
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Typography, Button, Paper, Alert, Collapse, IconButton } from '@mui/material';
-import { FaChevronDown, FaChevronUp, FaRefresh, FaBug } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaRedo, FaBug } from 'react-icons/fa';
 
 interface Props {
     children: ReactNode;
@@ -105,7 +105,7 @@ export default class ErrorBoundary extends Component<Props, State> {
                         <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                             <Button
                                 variant="contained"
-                                startIcon={<FaRefresh />}
+                                startIcon={<FaRedo />}
                                 onClick={this.handleRetry}
                                 color="primary"
                             >
