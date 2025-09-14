@@ -3,8 +3,10 @@ frontend:
   phases:
     preBuild:
       commands:
+        - rm -rf node_modules .next
         - npm ci
         - npx prisma generate --schema=./src/prisma/schema.prisma
+        - npx prisma db push --schema=./src/prisma/schema.prisma
     build:
       commands:
         - npm run build

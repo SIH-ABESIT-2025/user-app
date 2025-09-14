@@ -2,7 +2,6 @@
 
 const nextConfig = {
     // Production optimizations
-    output: 'standalone',
     poweredByHeader: false,
     compress: true,
     

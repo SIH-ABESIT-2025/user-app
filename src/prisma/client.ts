@@ -9,9 +9,15 @@ const createPrismaClient = () => {
     console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
     console.log('DATABASE_URL length:', process.env.DATABASE_URL?.length || 0);
     
-    if (!process.env.DATABASE_URL) {
-        console.error('❌ DATABASE_URL is not set. Prisma client will not be initialized.');
+    // Check for placeholder values
+    const isPlaceholder = process.env.DATABASE_URL?.includes('placeholder') || 
+                         process.env.DATABASE_URL?.includes('your-') ||
+                         !process.env.DATABASE_URL;
+    
+    if (isPlaceholder) {
+        console.error('❌ DATABASE_URL is not properly configured. Prisma client will not be initialized.');
         console.error('Available environment variables:', Object.keys(process.env).filter(key => key.includes('DATABASE') || key.includes('DB')));
+        console.error('Please set DATABASE_URL in AWS Amplify Environment Variables');
         return null;
     }
     

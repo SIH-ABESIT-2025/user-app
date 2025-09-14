@@ -12,7 +12,6 @@ dist/
 
 # Production
 .env.local
-.env.production
 .env.development
 .env
 
