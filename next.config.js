@@ -52,8 +52,14 @@ const nextConfig = {
         optimizePackageImports: ['@mui/material', '@mui/icons-material'],
     },
     
-    // Webpack optimizations
+    // Webpack optimizations with path mapping
     webpack: (config, { isServer }) => {
+        // Add path mapping for @/ alias
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@': require('path').resolve(__dirname, 'src'),
+        };
+        
         if (!isServer) {
             config.resolve.fallback = {
                 ...config.resolve.fallback,

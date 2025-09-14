@@ -16,6 +16,8 @@ frontend:
         - ls -la src/components/misc || true
         - ls -la src/components/dialog || true
         - ls -la src/utilities || true
+        - echo "===== check path resolution ====="
+        - node -e "console.log('Path resolution test:', require.resolve('./src/components/map/MapComponent.tsx'))" || true
         - rm -rf node_modules .next
         - npm ci
         - npx prisma generate --schema=./src/prisma/schema.prisma
