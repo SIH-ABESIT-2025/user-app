@@ -89,7 +89,14 @@ export const createTweet = async (tweet: string) => {
 };
 
 export const logIn = async (candidate: string) => {
-    const response = await fetch(`/api/auth/login`, {
+    // Only use fetch on client-side, server-side should not call this
+    if (typeof window === 'undefined') {
+        console.error('logIn should not be called from server-side');
+        return { success: false, error: 'Server-side call not allowed' };
+    }
+    
+    const url = getApiUrl('/api/auth/login');
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -114,7 +121,14 @@ export const logout = async () => {
 };
 
 export const createUser = async (newUser: string) => {
-    const response = await fetch(`/api/users/create`, {
+    // Only use fetch on client-side, server-side should not call this
+    if (typeof window === 'undefined') {
+        console.error('createUser should not be called from server-side');
+        return { success: false, error: 'Server-side call not allowed' };
+    }
+    
+    const url = getApiUrl('/api/users/create');
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -256,7 +270,14 @@ export const getUserMessages = async (username: string) => {
 };
 
 export const checkUserExists = async (username: string) => {
-    const response = await fetch(`/api/users/exists?q=${username}`);
+    // Only use fetch on client-side, server-side should not call this
+    if (typeof window === 'undefined') {
+        console.error('checkUserExists should not be called from server-side');
+        return { success: false, error: 'Server-side call not allowed' };
+    }
+    
+    const url = getApiUrl(`/api/users/exists?q=${username}`);
+    const response = await fetch(url);
     return response.json();
 };
 
@@ -319,7 +340,7 @@ export const getMinistries = async () => {
     });
     const json = await response.json();
     if (!response.ok) throw new Error(json.error || "Failed to fetch ministries");
-    return json.data || json;
+    return json.ministries || json.data || json;
 };
 
 export const getAllComplaints = async (page = "1", filters: any = {}) => {

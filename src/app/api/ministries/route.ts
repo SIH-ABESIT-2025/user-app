@@ -21,18 +21,20 @@ export async function GET() {
             orderBy: {
                 name: 'asc',
             },
+            include: {
+                _count: {
+                    select: {
+                        complaints: true
+                    }
+                }
+            }
         });
 
         console.log(`[${requestId}] [MINISTRIES-GET] Found ${ministries.length} ministries`);
 
+        // Return the same structure as admin API
         const response = {
-            success: true,
-            data: ministries,
-            debug: {
-                requestId,
-                executionTime: Date.now() - startTime,
-                timestamp: new Date().toISOString()
-            }
+            ministries
         };
 
         console.log(`[${requestId}] [MINISTRIES-GET] Request completed successfully in ${Date.now() - startTime}ms`);

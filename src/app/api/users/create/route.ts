@@ -4,7 +4,6 @@ import { SignJWT } from "jose";
 import { prisma } from "@/prisma/client";
 import { hashPassword } from "@/utilities/bcrypt";
 import { getJwtSecretKey } from "@/utilities/auth";
-import { createNotification } from "@/utilities/fetch";
 
 export async function POST(request: NextRequest) {
     const userData = await request.json();
@@ -41,8 +40,22 @@ export async function POST(request: NextRequest) {
             },
         });
 
+        // Create welcome notification directly instead of using fetch
         try {
-            await createNotification(newUser.username, "welcome", secret);
+            await prisma.notification.create({
+                data: {
+                    user: {
+                        connect: {
+                            username: newUser.username,
+                        },
+                    },
+                    type: "welcome",
+                    content: JSON.stringify({
+                        message: "Welcome to Jharkhand Civic Reporting Platform!",
+                        action: "Get started by reporting your first civic issue."
+                    }),
+                },
+            });
         } catch (notificationError) {
             console.error("Failed to create welcome notification:", notificationError);
             // Don't fail the user creation if notification fails
@@ -80,6 +93,11 @@ export async function POST(request: NextRequest) {
 
         return response;
     } catch (error: unknown) {
-        return NextResponse.json({ success: false, error });
+        console.error("User creation error:", error);
+        return NextResponse.json({ 
+            success: false, 
+            error: error instanceof Error ? error.message : "Unknown error occurred",
+            details: process.env.NODE_ENV === "development" ? error : undefined
+        });
     }
 }
