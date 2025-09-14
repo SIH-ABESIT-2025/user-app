@@ -15,9 +15,7 @@ export async function GET() {
 
         console.log(`[${requestId}] [MINISTRIES-GET] Fetching ministries...`);
         const ministries = await prisma.ministry.findMany({
-            where: {
-                isActive: true,
-            },
+            // Temporarily remove isActive filter to debug
             orderBy: {
                 name: 'asc',
             },
@@ -31,6 +29,7 @@ export async function GET() {
         });
 
         console.log(`[${requestId}] [MINISTRIES-GET] Found ${ministries.length} ministries`);
+        console.log(`[${requestId}] [MINISTRIES-GET] Ministries data:`, JSON.stringify(ministries, null, 2));
 
         // Return the same structure as admin API
         const response = {
