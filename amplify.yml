@@ -20,6 +20,8 @@ frontend:
         - node -e "console.log('Path resolution test:', require.resolve('./src/components/map/MapComponent.tsx'))" || true
         - rm -rf node_modules .next
         - npm ci
+        - echo "Installing sass for SCSS support..."
+        - npm install sass --save
         - npx prisma generate --schema=./src/prisma/schema.prisma
         - '[ -n "$DATABASE_URL" ] && npx prisma db push --schema=./src/prisma/schema.prisma || echo "skip prisma db push"'
     build:
