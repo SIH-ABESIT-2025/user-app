@@ -1,5 +1,17 @@
 import { NotificationContent, NotificationTypes } from "@/types/NotificationProps";
 
+// Utility function to get the correct base URL for API calls
+const getApiUrl = (path: string) => {
+    // In browser, use relative paths
+    if (typeof window !== 'undefined') {
+        return path;
+    }
+    
+    // On server, use absolute URL if available
+    const baseUrl = process.env.NEXT_PUBLIC_HOST_URL;
+    return baseUrl ? `${baseUrl}${path}` : path;
+};
+
 export const getAllTweets = async (page = "1") => {
     const response = await fetch(`/api/tweets/all?page=${page}`, {
         cache: 'no-store',

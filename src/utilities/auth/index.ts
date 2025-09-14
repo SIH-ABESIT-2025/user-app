@@ -1,7 +1,21 @@
 const verifyTokenFromServer = async (token: string) => {
-    const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
+    // In browser, use relative paths
+    if (typeof window !== 'undefined') {
+        const response = await fetch('/api/auth/verify', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(token),
+        });
+        return response.json();
+    }
+    
+    // On server, use absolute URL
+    const baseUrl = process.env.NEXT_PUBLIC_HOST_URL;
+    const url = baseUrl ? `${baseUrl}/api/auth/verify` : 'http://localhost:3000/api/auth/verify';
 
-    const response = await fetch(`/api/auth/verify`, {
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
