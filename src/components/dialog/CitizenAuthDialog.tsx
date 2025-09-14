@@ -140,6 +140,7 @@ export default function CitizenAuthDialog({ open, handleClose }: CitizenAuthDial
                 await refreshToken();
                 router.push("/home");
             } catch (error) {
+                console.error("Login error:", error);
                 setSnackbar({
                     message: "Something went wrong. Please try again.",
                     severity: "error",
