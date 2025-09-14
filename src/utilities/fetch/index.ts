@@ -288,7 +288,10 @@ export const createNotification = async (
     secret: string,
     notificationContent: NotificationContent = null
 ) => {
-    const response = await fetch(`/api/notifications/create`, {
+    // Use the getApiUrl utility for proper URL handling
+    const url = getApiUrl('/api/notifications/create');
+    
+    const response = await fetch(url, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

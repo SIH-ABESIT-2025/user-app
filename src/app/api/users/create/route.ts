@@ -41,7 +41,12 @@ export async function POST(request: NextRequest) {
             },
         });
 
-        await createNotification(newUser.username, "welcome", secret);
+        try {
+            await createNotification(newUser.username, "welcome", secret);
+        } catch (notificationError) {
+            console.error("Failed to create welcome notification:", notificationError);
+            // Don't fail the user creation if notification fails
+        }
 
         const token = await new SignJWT({
             id: newUser.id,
