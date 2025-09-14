@@ -1,9 +1,7 @@
 import { NotificationContent, NotificationTypes } from "@/types/NotificationProps";
 
-const HOST_URL = process.env.NEXT_PUBLIC_HOST_URL;
-
 export const getAllTweets = async (page = "1") => {
-    const response = await fetch(`${HOST_URL}/api/tweets/all?page=${page}`, {
+    const response = await fetch(`/api/tweets/all?page=${page}`, {
         next: {
             revalidate: 0,
         },
@@ -14,7 +12,7 @@ export const getAllTweets = async (page = "1") => {
 };
 
 export const getRelatedTweets = async () => {
-    const response = await fetch(`${HOST_URL}/api/tweets/related`, {
+    const response = await fetch(`/api/tweets/related`, {
         next: {
             revalidate: 0,
         },
@@ -25,7 +23,7 @@ export const getRelatedTweets = async () => {
 };
 
 export const getUserTweets = async (username: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${username}`, {
+    const response = await fetch(`/api/tweets/${username}`, {
         next: {
             revalidate: 0,
         },
@@ -36,7 +34,7 @@ export const getUserTweets = async (username: string) => {
 };
 
 export const getUserLikes = async (username: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${username}/likes`, {
+    const response = await fetch(`/api/tweets/${username}/likes`, {
         next: {
             revalidate: 0,
         },
@@ -47,7 +45,7 @@ export const getUserLikes = async (username: string) => {
 };
 
 export const getUserMedia = async (username: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${username}/media`, {
+    const response = await fetch(`/api/tweets/${username}/media`, {
         next: {
             revalidate: 0,
         },
@@ -58,7 +56,7 @@ export const getUserMedia = async (username: string) => {
 };
 
 export const getUserReplies = async (username: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${username}/replies`, {
+    const response = await fetch(`/api/tweets/${username}/replies`, {
         next: {
             revalidate: 0,
         },
@@ -69,7 +67,7 @@ export const getUserReplies = async (username: string) => {
 };
 
 export const getUserTweet = async (tweetId: string, tweetAuthor: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${tweetAuthor}/${tweetId}`, {
+    const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}`, {
         next: {
             revalidate: 0,
         },
@@ -80,7 +78,7 @@ export const getUserTweet = async (tweetId: string, tweetAuthor: string) => {
 };
 
 export const createTweet = async (tweet: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/create`, {
+    const response = await fetch(`/api/tweets/create`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -93,7 +91,7 @@ export const createTweet = async (tweet: string) => {
 };
 
 export const logIn = async (candidate: string) => {
-    const response = await fetch(`${HOST_URL}/api/auth/login`, {
+    const response = await fetch(`/api/auth/login`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -112,7 +110,7 @@ export const logInAsTest = async () => {
 };
 
 export const logout = async () => {
-    await fetch(`${HOST_URL}/api/auth/logout`, {
+    await fetch(`/api/auth/logout`, {
         next: {
             revalidate: 0,
         },
@@ -120,7 +118,7 @@ export const logout = async () => {
 };
 
 export const createUser = async (newUser: string) => {
-    const response = await fetch(`${HOST_URL}/api/users/create`, {
+    const response = await fetch(`/api/users/create`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -131,7 +129,7 @@ export const createUser = async (newUser: string) => {
 };
 
 export const getUser = async (username: string) => {
-    const response = await fetch(`${HOST_URL}/api/users/${username}`, {
+    const response = await fetch(`/api/users/${username}`, {
         next: {
             revalidate: 0,
         },
@@ -142,7 +140,7 @@ export const getUser = async (username: string) => {
 };
 
 export const editUser = async (updatedUser: string, username: string) => {
-    const response = await fetch(`${HOST_URL}/api/users/${username}/edit`, {
+    const response = await fetch(`/api/users/${username}/edit`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -154,7 +152,7 @@ export const editUser = async (updatedUser: string, username: string) => {
 
 export const updateTweetLikes = async (tweetId: string, tweetAuthor: string, tokenOwnerId: string, isLiked: boolean) => {
     const route = isLiked ? "unlike" : "like";
-    const response = await fetch(`${HOST_URL}/api/tweets/${tweetAuthor}/${tweetId}/${route}`, {
+    const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}/${route}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -168,7 +166,7 @@ export const updateTweetLikes = async (tweetId: string, tweetAuthor: string, tok
 
 export const updateRetweets = async (tweetId: string, tweetAuthor: string, tokenOwnerId: string, isRetweeted: boolean) => {
     const route = isRetweeted ? "unretweet" : "retweet";
-    const response = await fetch(`${HOST_URL}/api/tweets/${tweetAuthor}/${tweetId}/${route}`, {
+    const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}/${route}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -182,7 +180,7 @@ export const updateRetweets = async (tweetId: string, tweetAuthor: string, token
 
 export const updateUserFollows = async (followedUsername: string, tokenOwnerId: string, isFollowed: boolean) => {
     const route = isFollowed ? "unfollow" : "follow";
-    const response = await fetch(`${HOST_URL}/api/users/${followedUsername}/${route}`, {
+    const response = await fetch(`/api/users/${followedUsername}/${route}`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -195,7 +193,7 @@ export const updateUserFollows = async (followedUsername: string, tokenOwnerId: 
 };
 
 export const deleteTweet = async (tweetId: string, tweetAuthor: string, tokenOwnerId: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${tweetAuthor}/${tweetId}/delete`, {
+    const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}/delete`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -208,7 +206,7 @@ export const deleteTweet = async (tweetId: string, tweetAuthor: string, tokenOwn
 };
 
 export const createReply = async (reply: string, tweetAuthor: string, tweetId: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${tweetAuthor}/${tweetId}/reply`, {
+    const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}/reply`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -221,7 +219,7 @@ export const createReply = async (reply: string, tweetAuthor: string, tweetId: s
 };
 
 export const getReplies = async (tweetAuthor: string, tweetId: string) => {
-    const response = await fetch(`${HOST_URL}/api/tweets/${tweetAuthor}/${tweetId}/reply`, {
+    const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}/reply`, {
         next: {
             revalidate: 0,
         },
@@ -232,19 +230,19 @@ export const getReplies = async (tweetAuthor: string, tweetId: string) => {
 };
 
 export const search = async (text: string) => {
-    const response = await fetch(`${HOST_URL}/api/search?q=${text}`);
+    const response = await fetch(`/api/search?q=${text}`);
     return response.json();
 };
 
 export const getRandomThreeUsers = async () => {
-    const response = await fetch(`${HOST_URL}/api/users/random`);
+    const response = await fetch(`/api/users/random`);
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
     return json;
 };
 
 export const createMessage = async (message: string) => {
-    const response = await fetch(`${HOST_URL}/api/messages/create`, {
+    const response = await fetch(`/api/messages/create`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -257,7 +255,7 @@ export const createMessage = async (message: string) => {
 };
 
 export const getUserMessages = async (username: string) => {
-    const response = await fetch(`${HOST_URL}/api/messages/${username}`, {
+    const response = await fetch(`/api/messages/${username}`, {
         next: {
             revalidate: 0,
         },
@@ -268,12 +266,12 @@ export const getUserMessages = async (username: string) => {
 };
 
 export const checkUserExists = async (username: string) => {
-    const response = await fetch(`${HOST_URL}/api/users/exists?q=${username}`);
+    const response = await fetch(`/api/users/exists?q=${username}`);
     return response.json();
 };
 
 export const deleteConversation = async (participants: string[], tokenOwnerId: string) => {
-    const response = await fetch(`${HOST_URL}/api/messages/delete`, {
+    const response = await fetch(`/api/messages/delete`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -286,7 +284,7 @@ export const deleteConversation = async (participants: string[], tokenOwnerId: s
 };
 
 export const getNotifications = async () => {
-    const response = await fetch(`${HOST_URL}/api/notifications`, {
+    const response = await fetch(`/api/notifications`, {
         next: {
             revalidate: 0,
         },
@@ -302,7 +300,7 @@ export const createNotification = async (
     secret: string,
     notificationContent: NotificationContent = null
 ) => {
-    const response = await fetch(`${HOST_URL}/api/notifications/create`, {
+    const response = await fetch(`/api/notifications/create`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -315,7 +313,7 @@ export const createNotification = async (
 };
 
 export const markNotificationsRead = async () => {
-    const response = await fetch(`${HOST_URL}/api/notifications/read`, {
+    const response = await fetch(`/api/notifications/read`, {
         next: {
             revalidate: 0,
         },
@@ -327,7 +325,7 @@ export const markNotificationsRead = async () => {
 
 // Complaint-related functions
 export const getMinistries = async () => {
-    const response = await fetch(`${HOST_URL}/api/ministries`, {
+    const response = await fetch(`/api/ministries`, {
         next: {
             revalidate: 3600, // Cache for 1 hour
         },
@@ -339,7 +337,7 @@ export const getMinistries = async () => {
 
 export const getAllComplaints = async (page = "1", filters: any = {}) => {
     const params = new URLSearchParams({ page, ...filters });
-    const response = await fetch(`${HOST_URL}/api/complaints?${params}`, {
+    const response = await fetch(`/api/complaints?${params}`, {
         next: {
             revalidate: 0,
         },
@@ -354,7 +352,7 @@ export const getComplaintsPage = async ({ pageParam = 1, filters = {} }: { pageP
 };
 
 export const getComplaint = async (id: string) => {
-    const response = await fetch(`${HOST_URL}/api/complaints/${id}`, {
+    const response = await fetch(`/api/complaints/${id}`, {
         next: {
             revalidate: 0,
         },
@@ -365,7 +363,7 @@ export const getComplaint = async (id: string) => {
 };
 
 export const createComplaint = async (complaint: string) => {
-    const response = await fetch(`${HOST_URL}/api/complaints`, {
+    const response = await fetch(`/api/complaints`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -379,7 +377,7 @@ export const createComplaint = async (complaint: string) => {
 };
 
 export const updateComplaint = async (id: string, update: string) => {
-    const response = await fetch(`${HOST_URL}/api/complaints/${id}`, {
+    const response = await fetch(`/api/complaints/${id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -393,7 +391,7 @@ export const updateComplaint = async (id: string, update: string) => {
 };
 
 export const deleteComplaint = async (id: string) => {
-    const response = await fetch(`${HOST_URL}/api/complaints/${id}`, {
+    const response = await fetch(`/api/complaints/${id}`, {
         method: "DELETE",
         credentials: "include",
     });
