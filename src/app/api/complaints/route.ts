@@ -238,7 +238,7 @@ export async function POST(request: NextRequest) {
                 latitude,
                 longitude,
                 priority,
-                ministryId,
+                ministryId: ministryId && ministryId.trim() !== '' ? ministryId : null,
                 userId: verifiedToken.id,
                 complaintNumber,
                 attachments: {

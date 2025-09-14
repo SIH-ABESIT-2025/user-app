@@ -160,8 +160,7 @@ export default function NewComplaint({ token, handleSubmit }: NewComplaintProps)
             .string()
             .max(200, "Location should be of maximum 200 characters length."),
         ministryId: yup
-            .string()
-            .required("Please select a ministry/department."),
+            .string(),
         priority: yup
             .string()
             .oneOf(["LOW", "MEDIUM", "HIGH", "URGENT"])
@@ -342,14 +341,17 @@ export default function NewComplaint({ token, handleSubmit }: NewComplaintProps)
 
                 <div className="input-group">
                     <FormControl fullWidth sx={{ marginBottom: 2 }}>
-                        <InputLabel>Ministry/Department</InputLabel>
+                        <InputLabel>Ministry/Department (Optional)</InputLabel>
                         <Select
                             name="ministryId"
                             value={formik.values.ministryId}
                             onChange={formik.handleChange}
                             error={formik.touched.ministryId && Boolean(formik.errors.ministryId)}
-                            label="Ministry/Department"
+                            label="Ministry/Department (Optional)"
                         >
+                            <MenuItem value="">
+                                <em>No Ministry Selected (Optional)</em>
+                            </MenuItem>
                             {ministries?.map((ministry: MinistryProps) => (
                                 <MenuItem key={ministry.id} value={ministry.id}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
