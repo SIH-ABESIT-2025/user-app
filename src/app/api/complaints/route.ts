@@ -9,6 +9,12 @@ export async function GET(request: NextRequest) {
     const requestId = Math.random().toString(36).substr(2, 9);
     
     console.log(`[${requestId}] [COMPLAINTS-GET] Starting request at ${new Date().toISOString()}`);
+    console.log(`[${requestId}] [COMPLAINTS-GET] Environment check:`, {
+        NODE_ENV: process.env.NODE_ENV,
+        DATABASE_URL_EXISTS: !!process.env.DATABASE_URL,
+        DATABASE_URL_LENGTH: process.env.DATABASE_URL?.length || 0,
+        PRISMA_CLIENT_EXISTS: !!prisma
+    });
     
     try {
         const { searchParams } = new URL(request.url);

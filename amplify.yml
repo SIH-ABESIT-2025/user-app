@@ -5,6 +5,10 @@ frontend:
       commands:
         - echo "Installing dependencies..."
         - npm ci
+        - echo "Checking environment variables..."
+        - echo "DATABASE_URL exists: $([ -n "$DATABASE_URL" ] && echo "YES" || echo "NO")"
+        - echo "JWT_SECRET_KEY exists: $([ -n "$JWT_SECRET_KEY" ] && echo "YES" || echo "NO")"
+        - echo "NEXT_PUBLIC_HOST_URL exists: $([ -n "$NEXT_PUBLIC_HOST_URL" ] && echo "YES" || echo "NO")"
         - echo "Generating Prisma client..."
         - npx prisma generate --schema=./src/prisma/schema.prisma
     build:
