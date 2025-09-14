@@ -3,10 +3,23 @@ frontend:
   phases:
     preBuild:
       commands:
+        - node -v && npm -v
+        - pwd && ls -la
+        - echo "===== tsconfig =====" && cat tsconfig.json || true
+        - echo "===== list target files ====="
+        - git ls-files src/components/map || true
+        - git ls-files src/components/misc || true
+        - git ls-files src/components/dialog || true
+        - git ls-files src/utilities || true
+        - echo "===== ls real dirs ====="
+        - ls -la src/components/map || true
+        - ls -la src/components/misc || true
+        - ls -la src/components/dialog || true
+        - ls -la src/utilities || true
         - rm -rf node_modules .next
         - npm ci
         - npx prisma generate --schema=./src/prisma/schema.prisma
-        - npx prisma db push --schema=./src/prisma/schema.prisma
+        - '[ -n "$DATABASE_URL" ] && npx prisma db push --schema=./src/prisma/schema.prisma || echo "skip prisma db push"'
     build:
       commands:
         - npm run build
