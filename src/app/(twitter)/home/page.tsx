@@ -22,6 +22,7 @@ import CircularLoading from "@/components/misc/CircularLoading";
 import NothingToShow from "@/components/misc/NothingToShow";
 import ComplaintCard from "@/components/complaint/ComplaintCard";
 import InfiniteScroll from "@/components/misc/InfiniteScroll";
+import ErrorBoundary from "@/components/misc/ErrorBoundary";
 import { useInfiniteComplaints } from "@/hooks/useInfiniteComplaints";
 import { AuthContext } from "@/contexts/AuthContext";
 import { ComplaintProps, MinistryProps } from "@/types/ComplaintProps";
@@ -66,6 +67,7 @@ export default function HomePage() {
         setIsAuthDialogOpen(true);
     };
 
+
     if (isPending || isLoading) return <CircularLoading />;
 
     // Flatten all pages of complaints
@@ -73,19 +75,20 @@ export default function HomePage() {
     const totalComplaints = data?.pages[0]?.pagination?.total || 0;
 
     return (
-        <main>
-            <Box sx={{ padding: 2 }}>
-                {/* Header Section */}
-                <Box sx={{ marginBottom: 3 }}>
-                    <Typography variant="h4" component="h1" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
-                        Civic Issue Dashboard
-                    </Typography>
-                    
-                    <Typography variant="body1" color="text.secondary" sx={{ marginBottom: 2 }}>
-                        View and track all reported civic issues in Jharkhand
-                    </Typography>
+        <ErrorBoundary>
+            <main>
+                <Box sx={{ padding: 2 }}>
+                    {/* Header Section */}
+                    <Box sx={{ marginBottom: 3 }}>
+                        <Typography variant="h4" component="h1" sx={{ marginBottom: 2, fontWeight: 'bold' }}>
+                            Civic Issue Dashboard
+                        </Typography>
+                        
+                        <Typography variant="body1" color="text.secondary" sx={{ marginBottom: 2 }}>
+                            View and track all reported civic issues in Jharkhand
+                        </Typography>
 
-                </Box>
+                    </Box>
 
                 {/* Filters */}
                 <Paper elevation={1} sx={{ marginBottom: 3, padding: 3 }}>
@@ -181,11 +184,12 @@ export default function HomePage() {
                 )}
             </Box>
 
-            {/* Auth Dialog */}
-            <CitizenAuthDialog 
-                open={isAuthDialogOpen} 
-                handleClose={() => setIsAuthDialogOpen(false)} 
-            />
-        </main>
+                {/* Auth Dialog */}
+                <CitizenAuthDialog 
+                    open={isAuthDialogOpen} 
+                    handleClose={() => setIsAuthDialogOpen(false)} 
+                />
+            </main>
+        </ErrorBoundary>
     );
 }

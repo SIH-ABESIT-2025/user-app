@@ -2,7 +2,7 @@
 
 A modern civic issue reporting platform for the Government of Jharkhand, built with Next.js, TypeScript, and PostgreSQL.
 
-## Features
+## 🚀 Features
 
 - **Citizen Complaint System**: Submit and track civic issues
 - **Real-time Updates**: Get notifications on complaint status
@@ -11,7 +11,7 @@ A modern civic issue reporting platform for the Government of Jharkhand, built w
 - **Multi-role Support**: Citizens, ministry staff, and administrators
 - **Responsive Design**: Works on desktop and mobile devices
 
-## Tech Stack
+## 🛠️ Tech Stack
 
 - **Frontend**: Next.js 14, React 18, TypeScript
 - **Backend**: Next.js API Routes
@@ -21,57 +21,45 @@ A modern civic issue reporting platform for the Government of Jharkhand, built w
 - **Authentication**: JWT-based
 - **File Storage**: Local file system
 
-## Quick Start
+## 🚀 AWS Amplify Deployment
 
-1. **Prerequisites**
-   - Node.js 18+
-   - PostgreSQL 12+
-   - npm or yarn
+This project is optimized for AWS Amplify deployment.
 
-2. **Clone and Install**
-   ```bash
-   git clone <repository-url>
-   cd user-app
-   npm install
-   ```
+### Prerequisites
 
-3. **Database Setup**
-   ```bash
-   # Create PostgreSQL database
-   createdb jharkhand_civic_reporting
-   
-   # Copy environment file
-   cp env.example .env.local
-   
-   # Edit .env.local with your database credentials
-   ```
+- AWS Account
+- PostgreSQL database (AWS RDS recommended)
+- Node.js 18+
 
-4. **Environment Variables**
+### Deployment Steps
+
+1. **Connect Repository**
+   - Connect your GitHub repository to AWS Amplify
+   - Select the main branch
+
+2. **Configure Build Settings**
+   - Build command: `npm run amplify-build`
+   - Output directory: `.next`
+
+3. **Set Environment Variables**
    ```env
-   DATABASE_URL="postgresql://postgres:password@localhost:5432/jharkhand_civic_reporting"
-   JWT_SECRET_KEY="your-super-secret-jwt-key-here"
-   NODE_ENV="development"
+   DATABASE_URL=postgresql://username:password@your-rds-endpoint:5432/jharkhand_civic_reporting
+   JWT_SECRET_KEY=your-super-secret-jwt-key-here-32-characters-minimum
+   NODE_ENV=production
+   NEXT_PUBLIC_HOST_URL=https://your-app-id.amplifyapp.com
+   NEXT_PUBLIC_STORAGE_URL=https://your-app-id.amplifyapp.com/uploads
    ```
 
-5. **Initialize Database**
-   ```bash
-   npm run postinstall
-   npm run db:migrate
-   npm run db:seed  # Optional: seed with sample data
-   ```
+4. **Database Setup**
+   - Create PostgreSQL database on AWS RDS
+   - Run migrations: `npm run db:migrate`
+   - Seed data (optional): `npm run db:seed`
 
-6. **Start Development Server**
-   ```bash
-   npm run dev
-   ```
+5. **Deploy**
+   - Amplify will automatically build and deploy
+   - Access your app at the provided Amplify URL
 
-Visit http://localhost:3000 to see the application.
-
-## Detailed Setup
-
-For comprehensive setup instructions, see [LOCAL_SETUP.md](./LOCAL_SETUP.md).
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 src/
@@ -89,17 +77,18 @@ src/
 └── styles/                # Global styles
 ```
 
-## Available Scripts
+## 🎯 Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm run amplify-build` - Build for AWS Amplify
 - `npm run db:migrate` - Run database migrations
 - `npm run db:seed` - Seed database with sample data
 - `npm run db:push` - Push schema changes to database
 
-## Database Schema
+## 🗄️ Database Schema
 
 The application uses PostgreSQL with the following main entities:
 - **Users**: Citizens, ministry staff, and administrators
@@ -109,45 +98,38 @@ The application uses PostgreSQL with the following main entities:
 - **Notifications**: System notifications
 - **Tweets**: Social media style posts
 
-## File Storage
+## 📁 File Storage
 
 The application uses local file storage:
 - Uploaded files are stored in `public/uploads/`
 - Files are served directly by Next.js
 - Supports images, videos, audio, and documents
 
-## Security Features
+## 🔒 Security Features
 
 - JWT-based authentication
 - Role-based access control
 - Input validation and sanitization
 - File type and size restrictions
 - SQL injection protection via Prisma
+- Security headers for production
 
-## Contributing
+## 🚀 Production Optimizations
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+- **Image Optimization**: WebP and AVIF formats
+- **Compression**: Gzip compression enabled
+- **Caching**: Optimized cache strategies
+- **Bundle Optimization**: Tree shaking and code splitting
+- **Security Headers**: XSS and CSRF protection
 
-## License
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🆘 Support
 
 For support and questions:
-1. Check the [LOCAL_SETUP.md](./LOCAL_SETUP.md) guide
-2. Review the troubleshooting section
-3. Check application logs
-4. Verify database connection and permissions
-
-## Migration from Supabase
-
-This project has been migrated from Supabase to local PostgreSQL. If you're upgrading from a Supabase version:
-1. Follow the setup instructions in [LOCAL_SETUP.md](./LOCAL_SETUP.md)
-2. Export your data from Supabase
-3. Import data into local PostgreSQL
-4. Update file URLs to point to local storage
+1. Check the deployment logs in AWS Amplify console
+2. Verify environment variables are set correctly
+3. Check database connection and permissions
+4. Review application logs for errors

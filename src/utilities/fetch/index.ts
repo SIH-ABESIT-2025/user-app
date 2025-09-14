@@ -2,9 +2,7 @@ import { NotificationContent, NotificationTypes } from "@/types/NotificationProp
 
 export const getAllTweets = async (page = "1") => {
     const response = await fetch(`/api/tweets/all?page=${page}`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -13,9 +11,7 @@ export const getAllTweets = async (page = "1") => {
 
 export const getRelatedTweets = async () => {
     const response = await fetch(`/api/tweets/related`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -24,9 +20,7 @@ export const getRelatedTweets = async () => {
 
 export const getUserTweets = async (username: string) => {
     const response = await fetch(`/api/tweets/${username}`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -35,9 +29,7 @@ export const getUserTweets = async (username: string) => {
 
 export const getUserLikes = async (username: string) => {
     const response = await fetch(`/api/tweets/${username}/likes`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -46,9 +38,7 @@ export const getUserLikes = async (username: string) => {
 
 export const getUserMedia = async (username: string) => {
     const response = await fetch(`/api/tweets/${username}/media`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -57,9 +47,7 @@ export const getUserMedia = async (username: string) => {
 
 export const getUserReplies = async (username: string) => {
     const response = await fetch(`/api/tweets/${username}/replies`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -68,9 +56,7 @@ export const getUserReplies = async (username: string) => {
 
 export const getUserTweet = async (tweetId: string, tweetAuthor: string) => {
     const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -111,9 +97,7 @@ export const logInAsTest = async () => {
 
 export const logout = async () => {
     await fetch(`/api/auth/logout`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
 };
 
@@ -130,9 +114,7 @@ export const createUser = async (newUser: string) => {
 
 export const getUser = async (username: string) => {
     const response = await fetch(`/api/users/${username}`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -220,9 +202,7 @@ export const createReply = async (reply: string, tweetAuthor: string, tweetId: s
 
 export const getReplies = async (tweetAuthor: string, tweetId: string) => {
     const response = await fetch(`/api/tweets/${tweetAuthor}/${tweetId}/reply`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -256,9 +236,7 @@ export const createMessage = async (message: string) => {
 
 export const getUserMessages = async (username: string) => {
     const response = await fetch(`/api/messages/${username}`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -285,9 +263,7 @@ export const deleteConversation = async (participants: string[], tokenOwnerId: s
 
 export const getNotifications = async () => {
     const response = await fetch(`/api/notifications`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -314,9 +290,7 @@ export const createNotification = async (
 
 export const markNotificationsRead = async () => {
     const response = await fetch(`/api/notifications/read`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!json.success) throw new Error(json.message ? json.message : "Something went wrong.");
@@ -326,21 +300,17 @@ export const markNotificationsRead = async () => {
 // Complaint-related functions
 export const getMinistries = async () => {
     const response = await fetch(`/api/ministries`, {
-        next: {
-            revalidate: 3600, // Cache for 1 hour
-        },
+        cache: 'force-cache', // Cache for 1 hour
     });
     const json = await response.json();
     if (!response.ok) throw new Error(json.error || "Failed to fetch ministries");
-    return json;
+    return json.data || json;
 };
 
 export const getAllComplaints = async (page = "1", filters: any = {}) => {
     const params = new URLSearchParams({ page, ...filters });
     const response = await fetch(`/api/complaints?${params}`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!response.ok) throw new Error(json.error || "Failed to fetch complaints");
@@ -353,9 +323,7 @@ export const getComplaintsPage = async ({ pageParam = 1, filters = {} }: { pageP
 
 export const getComplaint = async (id: string) => {
     const response = await fetch(`/api/complaints/${id}`, {
-        next: {
-            revalidate: 0,
-        },
+        cache: 'no-store',
     });
     const json = await response.json();
     if (!response.ok) throw new Error(json.error || "Failed to fetch complaint");
